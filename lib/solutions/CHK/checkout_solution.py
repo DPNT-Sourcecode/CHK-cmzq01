@@ -36,7 +36,7 @@ def compute_price_of_single_item_type(
 
 
 def checkout(skus: str) -> int:
-    """Input SKU string (and optionally item_prices as a dict). Returns total price.
+    """Input SKU string. Returns total price including the offers available..
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :return: total price of items in basket.
@@ -55,7 +55,7 @@ def checkout(skus: str) -> int:
 
     # count occurences of each character in skus
     sku_counter = Counter(skus)
-    a, b, c, d, e = sku_counter["A"], sku_counter["B"], sku_counter["C"], sku_counter["D"], sku_counter["E"]
+    a, b, c, d, e = (sku_counter[item] for item in item_set)
 
     # increment total price with each item type
     total_price = 0
@@ -80,5 +80,6 @@ def checkout(skus: str) -> int:
 
     # Return total price
     return total_price
+
 
 
