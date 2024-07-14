@@ -10,7 +10,10 @@ class TestCheckout:
         [
             (10, 50, (3, 130), 440),
             (6, 30, (2, 45), 135),
+            (13, 20, None, 260),
+            (4, 15, None, 60),
         ],
     )
     def test_compute_price_of_single_item_type(self, quantity, single_price, offer, expected_price):
         assert compute_price_of_single_item_type(quantity, single_price, offer) == expected_price
+
