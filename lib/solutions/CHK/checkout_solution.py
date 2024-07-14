@@ -55,7 +55,7 @@ def checkout(skus: str) -> int:
 
     # count occurences of each character in skus
     sku_counter = Counter(skus)
-    a, b, c, d, e = sku_counter[a], sku_counter[b], sku_counter[c], sku_counter[d], sku_counter[e]
+    a, b, c, d, e = sku_counter["A"], sku_counter["B"], sku_counter["C"], sku_counter["D"], sku_counter["E"]
 
     # increment total price with each item type
     total_price = 0
@@ -80,4 +80,5 @@ def checkout(skus: str) -> int:
 
     # Return total price
     return total_price
+
 
