@@ -59,33 +59,34 @@ def checkout(skus: str) -> int:
     # increment total price with each item type
     total_price = 0
 
-    # SKU "A"
+    # SKU "A": 5 for 200, 3 for 130, single for 50
     a = sku_counter["A"]
     total_price += (a // 5) * 200 + ((y := a % 5) // 3) * 130 + (y % 3) * 50
 
     # SKU "B" depends on "E" so left until "E" is completed
 
-    # SKU "C"
+    # SKU "C": single for 20
     c = sku_counter["C"]
     total_price += c * 20
 
-    # SKU "D"
+    # SKU "D": single for 15
     d = sku_counter["D"]
     total_price += d * 15
 
-    # SKU "E"
+    # SKU "E": single for 40, but buying 2 reduces number of "B" by 1
     e = sku_counter["E"]
     b = sku_counter["B"]
     total_price += e * 40
     b = max(0, b - (e // 2))
 
-    # SKU "B"
+    # SKU "B": 2 for 45, single for 30
     total_price += (b // 2) * 45 + (b % 2) * 30
 
-    # SKU "F"
+    # SKU "F": buy 2, get 1 free
     f = sku_counter["F"]
     total_price += (f - f // 3) * 10
 
     # Return total price
     return total_price
+
 
