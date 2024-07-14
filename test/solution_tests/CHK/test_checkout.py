@@ -32,5 +32,3 @@ class TestCheckout:
     def test_compute_price_of_single_item_type_exceptions(self, quantity, single_item_price, offer, expected_exception_class):
         with pytest.raises(expected_exception_class):
             compute_price_of_single_item_type(quantity, single_item_price, offer)
-
-

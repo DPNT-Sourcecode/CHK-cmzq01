@@ -23,5 +23,3 @@ def compute_price_of_single_item_type(quantity: int, single_item_price: int, off
 
 def checkout(skus):
     raise NotImplementedError()
-
-
