@@ -10,6 +10,7 @@ def compute_price_of_single_item_type(
     quantity: int, single_item_price: int, offer: tuple[int, int] = None
 ) -> int:
     """Input item quanity, normal single item price, tuple describing item offer. Returns total price including offers.
+
     This function is now unused, because the structure of offers available is more complicated.
 
     :param quantity: number of items purchased
@@ -36,12 +37,11 @@ def compute_price_of_single_item_type(
 
 
 def checkout(skus: str) -> int:
-    """Input SKU string. Returns total price including the offers available..
+    """Input SKU string. Returns total price including the offers available.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :return: total price of items in basket.
     """
-
     # set of items available
     item_set = {"A", "B", "C", "D", "E"}
 
@@ -84,3 +84,4 @@ def checkout(skus: str) -> int:
 
     # Return total price
     return total_price
+
