@@ -10,6 +10,7 @@ def compute_price_of_single_item_type(
     quantity: int, single_item_price: int, offer: tuple[int, int] = None
 ) -> int:
     """Input item quanity, normal single item price, tuple describing item offer. Returns total price including offers.
+    This function is now unused, because the structure of offers available is more complicated.
 
     :param quantity: number of items purchased
     :param single_item_price: normal price of a single item (ie. without offer)
@@ -34,42 +35,49 @@ def compute_price_of_single_item_type(
         ) * single_item_price
 
 
-"""
-dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}.
-For now, requirements do not require this to be a variable, but it is expected to be useful later. A database could
-be useful for this information also.
-"""
-item_prices = {
-    "A": (50, (3, 130)),
-    "B": (30, (2, 45)),
-    "C": (20, None),
-    "D": (15, None),
-}
-
-
 def checkout(skus: str) -> int:
     """Input SKU string (and optionally item_prices as a dict). Returns total price.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :return: total price of items in basket.
     """
-    global item_prices
+
+    # set of items available
+    item_set = {"A", "B", "C", "D", "E"}
+
     # skus must be a string.
     if not isinstance(skus, str):
         raise TypeError("skus must be a string")
 
     # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
-    if not set(skus) <= set(item_prices.keys()):
+    if not set(skus) <= item_set:
         return -1
 
     # count occurences of each character in skus
     sku_counter = Counter(skus)
+    a, b, c, d, e = sku_counter[a], sku_counter[b], sku_counter[c], sku_counter[d], sku_counter[e]
 
-    # increment total price by each of the quantities of the SKUs found in the input string
+    # increment total price with each item type
     total_price = 0
-    for item, prices in item_prices.items():
-        quantity = sku_counter[item]
-        single_price = prices[0]
-        offer = prices[1]
-        total_price += compute_price_of_single_item_type(quantity, single_price, offer)
+
+    # SKU "A"
+    total_price += (a // 5) * 200 + ((y := a % 5) // 3) * 130 + (y % 3) * 50
+
+    # SKU "B" depends on "E" so left until "E" is completed
+
+    # SKU "C"
+    total_price += c * 20
+
+    # SKU "D"
+    total_price += d * 15
+
+    # SKU "E"
+    total_price += e * 40
+    b = max(0, b - (e // 2))
+
+    # SKU "B"
+    total_price += (b // 2) * 45 + (b % 2) * 30
+
+    # Return total price
     return total_price
+

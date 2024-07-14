@@ -43,19 +43,30 @@ class TestCheckout:
     @pytest.mark.parametrize(
         "skus, expected_price",
         [
-            ("AAAA", 180),
+            ("A", 50),
+            ("AAAAAAAA", 330),
+            ("AAAAAAAAA", 380),
+            ("AAAAAAAAAA", 400),
             ("BBBBBBB", 165),
+            ("BBBBBBEE", 120 + 80),
+            ("BBBBBBEEE", 120 + 120),
+            ("BBBBBBEEEE", 90 + 160),
+            ("BEE", 80),
+            ("BBEEEE", 80),
+            ("EEEE", 80),
+            ("BEEEE", 80),
             ("C" * 100, 2000),
+            ("D" * 100, 1500),
+            ("A" * 9 + "B" * 6 + "C" * 10 + "D" * 8 + "E" * 4, 380 + 90 + 160 + 2000 + 1470),
             ("", 0),
-            ("A" * 301 + "B" * 201 + "C" * 100 + "D" * 100, 21080),
             ("AFAGAHAI", -1),
             ("FGHI", -1),
             ("WXYZ", -1),
             ("----", -1),
             ("abcd", -1),
             ("wxyz", -1),
-            ("AABCAADABDCCCADB", 460),
         ],
     )
     def test_checkout(self, skus, expected_price):
         assert checkout(skus) == expected_price
+
