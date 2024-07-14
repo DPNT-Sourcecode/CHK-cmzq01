@@ -1,4 +1,11 @@
 # noinspection PyShadowingBuiltins,PyUnusedLocal
+
+class InputOutOfRangeError(Exception):
+    """A simple exception class indicating integers inputs are out of range.
+    """
+    pass
+
+
 def compute(x: int, y: int) -> int:
     """Simple function to return the sum of two input integers.
 
@@ -9,5 +16,6 @@ def compute(x: int, y: int) -> int:
     if x is not int or y is not int:
         raise TypeError("Inputs x and y must both be integers.")
     return x + y
+
 
 
