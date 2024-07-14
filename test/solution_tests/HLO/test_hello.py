@@ -28,3 +28,4 @@ class TestHello:
     def test_hello_exceptions(self, friend_name, expected_exception_class):
         with pytest.raises(expected_exception_class):
             hello(friend_name)
+
