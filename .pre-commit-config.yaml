@@ -12,10 +12,8 @@ repos:
     rev: v1.3.1
     hooks:
     - id: python-safety-dependencies-check
-      files: Pipfile
   - repo: https://github.com/ambv/black
     rev: 24.4.2
     hooks:
     - id: black
       language_version: python3.10
-
