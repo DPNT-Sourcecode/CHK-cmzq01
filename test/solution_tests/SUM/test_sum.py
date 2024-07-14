@@ -32,4 +32,3 @@ class TestSum:
     def test_sum_exceptions(self, x, y, expected_exception_class):
         with pytest.raises(expected_exception_class):
             compute(x, y)
-

@@ -26,7 +26,3 @@ def compute(x: int, y: int) -> int:
 
     # Return sum.
     return x + y
-
-
-
-
