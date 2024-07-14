@@ -32,3 +32,14 @@ class TestCheckout:
     def test_compute_price_of_single_item_type_exceptions(self, quantity, single_item_price, offer, expected_exception_class):
         with pytest.raises(expected_exception_class):
             compute_price_of_single_item_type(quantity, single_item_price, offer)
+
+    @pytest.mark.parametrize(
+        "skus, expected_price",
+        [
+            ("AAAA", 180),
+            ("AFAGAHAI", 180),
+            ("AABCAADABDCCCADB", 460),
+        ]
+    )
+    def test_checkout(self, skus, expected_price):
+        assert checkout(skus) == expected_price
