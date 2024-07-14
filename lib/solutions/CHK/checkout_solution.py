@@ -55,23 +55,27 @@ def checkout(skus: str) -> int:
 
     # count occurences of each character in skus
     sku_counter = Counter(skus)
-    a, b, c, d, e = (sku_counter[item] for item in item_set)
 
     # increment total price with each item type
     total_price = 0
 
     # SKU "A"
+    a = sku_counter["A"]
     total_price += (a // 5) * 200 + ((y := a % 5) // 3) * 130 + (y % 3) * 50
 
     # SKU "B" depends on "E" so left until "E" is completed
 
     # SKU "C"
+    c = sku_counter["C"]
     total_price += c * 20
 
     # SKU "D"
+    d = sku_counter["D"]
     total_price += d * 15
 
     # SKU "E"
+    e = sku_counter["E"]
+    b = sku_counter["B"]
     total_price += e * 40
     b = max(0, b - (e // 2))
 
@@ -80,6 +84,7 @@ def checkout(skus: str) -> int:
 
     # Return total price
     return total_price
+
 
 
 
