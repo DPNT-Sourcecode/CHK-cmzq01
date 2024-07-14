@@ -15,3 +15,13 @@ class TestSum:
     def test_sum(self, x, y, expected_sum):
         assert sum_solution.compute(x, y) == expected_sum
 
+    @pytest.mark.parametrize(
+        "x, y, expected_exception",
+        [
+            (0.0, 0.0, TypeError),
+        ]
+    )
+    def test_sum_exceptions(self, x, y, expected_exception):
+        with pytest.raises(TypeError):
+            sum_solution.compute(x, y)
+
