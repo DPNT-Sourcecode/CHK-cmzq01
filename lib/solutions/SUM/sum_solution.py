@@ -1,17 +1,12 @@
-# noinspection PyShadowingBuiltins,PyUnusedLocal
-"""sum_solution challenge.
+"""sum_solution challenge."""
 
-"""
+# noinspection PyShadowingBuiltins,PyUnusedLocal
 
 
 class InputOutOfRangeError(Exception):
-    """A simple exception class indicating integer
-    inputs are out of range.
-    """
+    """A simple exception class indicating integer inputs are out of range."""
 
-    def __init__(self):
-        """Simple inherit from Exception."""
-        pass
+    pass
 
 
 def compute(x: int, y: int) -> int:
@@ -31,5 +26,6 @@ def compute(x: int, y: int) -> int:
 
     # Return sum.
     return x + y
+
 
 
