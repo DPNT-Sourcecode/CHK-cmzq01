@@ -73,7 +73,3 @@ def checkout(skus: str) -> int:
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
-
-
-
-

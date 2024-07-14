@@ -59,4 +59,3 @@ class TestCheckout:
     )
     def test_checkout(self, skus, expected_price):
         assert checkout(skus) == expected_price
-
