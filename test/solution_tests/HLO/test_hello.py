@@ -8,10 +8,10 @@ class TestHello:
     @pytest.mark.parametrize(
         "friend_name, expected_message",
         [
-            ("tom", "Hello, World!"),
-            ("another_friend", "Hello, World!"),
-            ("and_another_friend", "Hello, World!"),
-            ("", "Hello, World!"),
+            ("John", "Hello, John!"),
+            ("tom", "Hello, tom!"),
+            ("another_friend", "Hello, another_friend!"),
+            ("", "Hello, !"),
         ],
     )
     def test_hello(self, friend_name, expected_message):
@@ -28,5 +28,6 @@ class TestHello:
     def test_hello_exceptions(self, friend_name, expected_exception_class):
         with pytest.raises(expected_exception_class):
             hello(friend_name)
+
 
 
