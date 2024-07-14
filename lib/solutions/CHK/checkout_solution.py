@@ -33,30 +33,34 @@ def compute_price_of_single_item_type(
             quantity % offer[0]
         ) * single_item_price
 
+"""
+dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}.
+For now, requirements do not require this to be a variable, but it is expected to be useful later. A database could
+be useful for this information also.
+"""
+item_prices = {
+    "A": (50, (3, 130)),
+    "B": (30, (2, 45)),
+    "C": (20, None),
+    "D": (15, None),
+}
 
-def checkout(
-    skus: str,
-    item_prices: dict = {
-        "A": (50, (3, 130)),
-        "B": (30, (2, 45)),
-        "C": (20, None),
-        "D": (15, None),
-    },
-) -> int:
+
+def checkout(skus: str) -> int:
     """Input SKU string (and optionally item_prices as a dict). Returns total price.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
-    :param item_prices: dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}.
-    For now, requirements do not require this to be a variable, but it is expected to be useful later. A database could
-    be useful for this information also.
     :return: total price of items in basket.
     """
+    global item_prices
     # skus must be a string.
     if not isinstance(skus, str):
         raise TypeError("skus must be a string")
 
     # count occurences of each character in skus
     sku_counter = Counter(skus)
+
+    # increment total price by each of the quantities of the SKUs found in the input string
     total_price = 0
     for item, prices in item_prices.items():
         quantity = sku_counter[item]
@@ -64,4 +68,5 @@ def checkout(
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
+
 
