@@ -22,13 +22,15 @@ class TestCheckout:
         [
             ("ten", 50, None, TypeError),
             (10, 50.0, None, TypeError),
-            (10, 50, (3), IndexError),
+            (10, 50, (), IndexError),
+            (10, 50, [3, 130], TypeError),
             (10, 50, (3, "wrong"), TypeError),
-            (10, 50, (3.0, 5), TypeError),
-            (10, 50, (3, 5, "wrong"), IndexError),
+            (10, 50, (3.0, 130), TypeError),
+            (10, 50, (3, 130, "wrong"), IndexError),
         ],
     )
     def test_compute_price_of_single_item_type_exceptions(self, quantity, single_item_price, offer, expected_exception_class):
         with pytest.raises(expected_exception_class):
             compute_price_of_single_item_type(quantity, single_item_price, offer)
+
 

@@ -15,7 +15,7 @@ def compute_price_of_single_item_type(quantity: int, single_item_price: int, off
         return quantity * single_item_price
     elif not len(offer) == 2:
         raise IndexError("offer must be of the form (<quantity>, <total_price>)")
-    elif not (isinstance(offer[0], int) and isinstance(offer[1], int)):
+    elif not (isinstance(offer, tuple) and isinstance(offer[0], int) and isinstance(offer[1], int)):
         raise TypeError("offer must be a tuple with types (int, int)")
     else:
         return (quantity // offer[0]) * offer[1] + (quantity % offer[0]) * single_item_price
@@ -23,4 +23,5 @@ def compute_price_of_single_item_type(quantity: int, single_item_price: int, off
 
 def checkout(skus):
     raise NotImplementedError()
+
 
