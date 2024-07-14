@@ -43,7 +43,7 @@ def checkout(skus: str) -> int:
     :return: total price of items in basket.
     """
     # set of items available
-    item_set = {"A", "B", "C", "D", "E"}
+    item_set = {"A", "B", "C", "D", "E", "F"}
 
     # skus must be a string.
     if not isinstance(skus, str):
@@ -82,5 +82,10 @@ def checkout(skus: str) -> int:
     # SKU "B"
     total_price += (b // 2) * 45 + (b % 2) * 30
 
+    # SKU "F"
+    f = sku_counter["F"]
+    total_price += (f - f // 3) * 10
+
     # Return total price
     return total_price
+
