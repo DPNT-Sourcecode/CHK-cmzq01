@@ -33,6 +33,7 @@ def compute_price_of_single_item_type(
             quantity % offer[0]
         ) * single_item_price
 
+
 """
 dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}.
 For now, requirements do not require this to be a variable, but it is expected to be useful later. A database could
@@ -68,5 +69,6 @@ def checkout(skus: str) -> int:
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
+
 
 
