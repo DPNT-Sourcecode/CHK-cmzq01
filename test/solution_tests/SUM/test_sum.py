@@ -22,6 +22,7 @@ class TestSum:
             (0.0, 0.0, TypeError),
             (15.6, 5, TypeError),
             (5, 15.6, TypeError),
+            ("string_input", {"dict": "input"}, TypeError),
             (-1, 100, InputOutOfRangeError),
             (101, 100, InputOutOfRangeError),
             (100, 101, InputOutOfRangeError),

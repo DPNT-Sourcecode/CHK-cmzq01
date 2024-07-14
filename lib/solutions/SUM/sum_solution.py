@@ -16,7 +16,7 @@ def compute(x: int, y: int) -> int:
     """
 
     # x and y must be integers, or raise TypeError.
-    if x is not int or y is not int:
+    if not isinstance(x, int) or not isinstance(y, int):
         raise TypeError("Inputs x and y must both be integers.")
 
     # x and y must be between 0 and 100 inclusive, or raise InputOutOfRangeError.
@@ -25,3 +25,4 @@ def compute(x: int, y: int) -> int:
 
     # Return sum.
     return x + y
+
