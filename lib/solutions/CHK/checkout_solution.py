@@ -58,6 +58,10 @@ def checkout(skus: str) -> int:
     if not isinstance(skus, str):
         raise TypeError("skus must be a string")
 
+    # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
+    if not set(skus) <= set(item_prices.keys()):
+        return -1
+
     # count occurences of each character in skus
     sku_counter = Counter(skus)
 
@@ -69,6 +73,7 @@ def checkout(skus: str) -> int:
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
+
 
 
 

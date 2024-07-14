@@ -48,9 +48,15 @@ class TestCheckout:
             ("C" * 100, 2000),
             ("", 0),
             ("A" * 301 + "B" * 201 + "C" * 100 + "D" * 100, 21080),
-            ("AFAGAHAI", 180),
+            ("AFAGAHAI", -1),
+            ("FGHI", -1),
+            ("WXYZ", -1),
+            ("----", -1),
+            ("abcd", -1),
+            ("wxyz", -1),
             ("AABCAADABDCCCADB", 460),
         ],
     )
     def test_checkout(self, skus, expected_price):
         assert checkout(skus) == expected_price
+
