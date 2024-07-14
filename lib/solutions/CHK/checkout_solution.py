@@ -47,11 +47,15 @@ def checkout(
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :param item_prices: dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}.
-    For now, requirements do not require this to be a variable, but it is expected to be useful later.
+    For now, requirements do not require this to be a variable, but it is expected to be useful later. A database could
+    be useful for this information also.
     :return: total price of items in basket.
     """
+    # skus must be a string.
     if not isinstance(skus, str):
         raise TypeError("skus must be a string")
+
+    # count occurences of each character in skus
     sku_counter = Counter(skus)
     total_price = 0
     for item, prices in item_prices.items():
@@ -60,3 +64,4 @@ def checkout(
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
+
