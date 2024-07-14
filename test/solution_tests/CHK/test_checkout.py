@@ -14,8 +14,13 @@ class TestCheckout:
             (4, 15, None, 60),
         ],
     )
-    def test_compute_price_of_single_item_type(self, quantity, single_item_price, offer, expected_price):
-        assert compute_price_of_single_item_type(quantity, single_item_price, offer) == expected_price
+    def test_compute_price_of_single_item_type(
+        self, quantity, single_item_price, offer, expected_price
+    ):
+        assert (
+            compute_price_of_single_item_type(quantity, single_item_price, offer)
+            == expected_price
+        )
 
     @pytest.mark.parametrize(
         "quantity, single_item_price, offer, expected_exception_class",
@@ -29,7 +34,9 @@ class TestCheckout:
             (10, 50, (3, 130, "wrong"), IndexError),
         ],
     )
-    def test_compute_price_of_single_item_type_exceptions(self, quantity, single_item_price, offer, expected_exception_class):
+    def test_compute_price_of_single_item_type_exceptions(
+        self, quantity, single_item_price, offer, expected_exception_class
+    ):
         with pytest.raises(expected_exception_class):
             compute_price_of_single_item_type(quantity, single_item_price, offer)
 
@@ -43,7 +50,8 @@ class TestCheckout:
             ("A" * 301 + "B" * 201 + "C" * 100 + "D" * 100, 21080),
             ("AFAGAHAI", 180),
             ("AABCAADABDCCCADB", 460),
-        ]
+        ],
     )
     def test_checkout(self, skus, expected_price):
         assert checkout(skus) == expected_price
+
