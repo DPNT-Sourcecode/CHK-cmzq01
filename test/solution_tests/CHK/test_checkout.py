@@ -37,6 +37,10 @@ class TestCheckout:
         "skus, expected_price",
         [
             ("AAAA", 180),
+            ("BBBBBBB", 165),
+            ("C" * 100, 2000),
+            ("", 0),
+            ("A" * 301 + "B" * 201 + "C" * 100 + "D" * 100, 21080),
             ("AFAGAHAI", 180),
             ("AABCAADABDCCCADB", 460),
         ]

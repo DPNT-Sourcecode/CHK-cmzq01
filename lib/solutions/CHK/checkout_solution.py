@@ -31,7 +31,7 @@ def checkout(skus: str, item_prices: dict = {
 }) -> int:
     """Input SKU string (and optionally item_prices as a dict). Returns total price.
 
-    :param skus: string of the SKUs for items in the basket
+    :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :param item_prices: dict with entries of the form {<sku>:(<single_price>, (<offer_quantity>, <offer_total_price>))}. For now,
     requirements do not require this to be a variable, but it is expected to be useful later.
     :return: total price of items in basket.
@@ -44,3 +44,4 @@ def checkout(skus: str, item_prices: dict = {
         offer = prices[1]
         total_price += compute_price_of_single_item_type(quantity, single_price, offer)
     return total_price
+
