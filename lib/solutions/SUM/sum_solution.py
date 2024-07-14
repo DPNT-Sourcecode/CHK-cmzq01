@@ -10,7 +10,7 @@ class InputOutOfRangeError(Exception):
 
 
 def compute(x: int, y: int) -> int:
-    """Simple function to return the sum of two input integers.
+    """Input two integers x and y. Return their sum.
 
     :param x: First integer
     :param y: Second integer
@@ -26,6 +26,7 @@ def compute(x: int, y: int) -> int:
 
     # Return sum.
     return x + y
+
 
 
 
