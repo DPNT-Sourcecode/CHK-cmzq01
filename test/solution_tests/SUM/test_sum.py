@@ -1,5 +1,6 @@
-from solutions.SUM import sum_solution, InputOutOfRange
 import pytest
+
+from solutions.SUM import sum_solution
 
 
 class TestSum:
@@ -21,14 +22,15 @@ class TestSum:
             (0.0, 0.0, TypeError),
             (15.6, 5, TypeError),
             (5, 15.6, TypeError),
-            (-1, 100, InputOutOfRangeError),
-            (101, 100, InputOutOfRangeError),
-            (100, 101, InputOutOfRangeError),
-            (100, -1, InputOutOfRangeError),
+            (-1, 100, sum_solution.InputOutOfRangeError),
+            (101, 100, sum_solution.InputOutOfRangeError),
+            (100, 101, sum_solution.InputOutOfRangeError),
+            (100, -1, sum_solution.InputOutOfRangeError),
         ]
     )
     def test_sum_exceptions(self, x, y, expected_exception):
         with pytest.raises(TypeError):
             sum_solution.compute(x, y)
+
 
 
