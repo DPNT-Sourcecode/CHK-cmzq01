@@ -64,7 +64,3 @@ class TestOffers:
             offer = BgfOffer(single_unit_price, buy_quantity)
             offer.calculate_price(quantity)
 
-
-
-
-

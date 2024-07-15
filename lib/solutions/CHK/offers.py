@@ -22,6 +22,3 @@ class BgfOffer(SingleProductOffer):
             raise TypeError
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
-
-
-
