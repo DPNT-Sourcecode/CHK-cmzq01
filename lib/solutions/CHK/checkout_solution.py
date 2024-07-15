@@ -1,11 +1,12 @@
 """checkout_solution challenge."""
 
 from collections import Counter
+# from basket import Basket
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 
-from basket import Basket
+
 
 
 def compute_price_of_single_item_type(
@@ -41,7 +42,7 @@ def compute_price_of_single_item_type(
 OFFER_DATABASE = {}
 
 
-def checkout_old(skus: str) -> int:
+def checkout(skus: str) -> int:
     """Input SKU string. Returns total price including the offers available.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
@@ -95,12 +96,13 @@ def checkout_old(skus: str) -> int:
     return total_price
 
 
-def checkout(skus: str) -> int:
-    """Input SKU string. Returns total price including the offers available.
+# def checkout(skus: str) -> int:
+#     """Input SKU string. Returns total price including the offers available.
+#
+#     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
+#     :return: total price of items in basket.
+#     """
+#     basket = Basket(skus, offer_database=OFFER_DATABASE)
+#     return basket.final_price
 
-    :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
-    :return: total price of items in basket.
-    """
-    basket = Basket(skus, offer_database=OFFER_DATABASE)
-    return basket.final_price
 
