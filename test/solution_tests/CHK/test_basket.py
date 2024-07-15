@@ -12,7 +12,7 @@ def price_list():
                 [
                     LadderDiscount(3, 130),
                     LadderDiscount(5, 200),
-                ]
+                ],
             )
         }
     }

@@ -1,3 +1,5 @@
+"""Module containing class representing basket of items at checkout."""
+
 from collections import Counter
 from offers import *
 
@@ -9,7 +11,7 @@ OFFER_DATABASE = {
             [
                 LadderDiscount(3, 130),
                 LadderDiscount(5, 200),
-            ]
+            ],
         )
     },
     "B": {
@@ -17,22 +19,13 @@ OFFER_DATABASE = {
             30,
             [
                 LadderDiscount(2, 45),
-            ]
+            ],
         )
     },
-    "C": {
-        SingleProductOffer(20)
-    },
-    "D": {
-        SingleProductOffer(15)
-    },
-    "E": {
-        CrossProductOffer(40, "E", 2, "B", 1)
-    },
-    "F": {
-        BgfOffer(10, 2)
-    },
-
+    "C": {SingleProductOffer(20)},
+    "D": {SingleProductOffer(15)},
+    "E": {CrossProductOffer(40, "E", 2, "B", 1)},
+    "F": {BgfOffer(10, 2)},
 }
 
 
@@ -71,11 +64,12 @@ class Basket:
         self.apply_all_cross_product_offers()
 
         # Basket updates the price of each basket item
-        (self.
-         calculate_all_prices())
+        (self.calculate_all_prices())
 
         # Basket sets the final price
-        self.final_price = sum([basket_item.price for basket_item in self.basket_contents])
+        self.final_price = sum(
+            [basket_item.price for basket_item in self.basket_contents]
+        )
 
     def apply_all_cross_product_offers(self):
         for sku, basket_item in self.basket_contents:
@@ -89,7 +83,9 @@ class Basket:
         subject_sku = offer.subject_sku
         subject_quantity = self.basket_contents[subject_sku].quantity_raw
         subject_quantity_buy = offer.subject_quantity_buy
-        self.basket_contents[target_sku].quantity_corrected = max(0, target_quantity - (subject_quantity // subject_quantity_buy))
+        self.basket_contents[target_sku].quantity_corrected = max(
+            0, target_quantity - (subject_quantity // subject_quantity_buy)
+        )
 
     def calculate_all_prices(self):
         for sku, basket_item in self.basket_contents:
