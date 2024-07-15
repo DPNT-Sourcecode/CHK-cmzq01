@@ -64,3 +64,31 @@ class TestOffers:
             offer = BgfOffer(single_unit_price, buy_quantity)
             offer.calculate_price(quantity)
 
+    @pytest.mark.parametrize(
+        "quantity, single_unit_price, ladder_discounts, expected_price",
+        [
+            (
+                    1,
+                    50,
+                    [
+                        LadderDiscount(3, 130),
+                        LadderDiscount(5, 200),
+                    ],
+                    50
+            ),
+            (
+                    8, 50, [
+                        LadderDiscount(3, 130),
+                        LadderDiscount(5, 200),
+                    ],
+                    330
+            ),
+        ],
+    )
+    def test_calculate_price_ladder_offer(
+            self, quantity, single_unit_price, ladder_discounts, expected_price
+    ):
+        offer = LadderOffer(single_unit_price, ladder_discounts)
+        assert offer.calculate_price(quantity) == expected_price
+
+
