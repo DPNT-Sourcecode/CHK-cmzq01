@@ -106,7 +106,7 @@ class TestOffers:
         assert offer.calculate_price(quantity) == expected_price
 
     @pytest.mark.parametrize(
-    "quantity, single_unit_price, ladder_discounts, expected_exception_class",
+        "quantity, single_unit_price, ladder_discounts, expected_exception_class",
         [
             (
                 1,
