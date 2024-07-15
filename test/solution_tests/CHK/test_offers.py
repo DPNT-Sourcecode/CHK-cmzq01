@@ -40,6 +40,7 @@ class TestOffers:
             (1, 10, 2, 1, 10),
             (2, 10, 2, 1, 20),
             (3, 10, 2, 1, 20),
+            (10, 100, 8, 2, 600),
         ],
     )
     def test_calculate_price_bgf_offer(
@@ -47,5 +48,6 @@ class TestOffers:
     ):
         offer = BgfOffer(single_unit_price, buy_quantity, get_quantity)
         assert offer.calculate_price(quantity) == expected_price
+
 
 
