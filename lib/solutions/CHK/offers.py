@@ -76,7 +76,7 @@ class LadderDiscount:
         if not(isinstance(quantity, int) and isinstance(total_price, int)):
             raise TypeError
         if quantity <= 1:
-            raise IndexError
+            raise Exception
         self.quantity = quantity
         self.total_price = total_price
 
@@ -168,4 +168,5 @@ class CrossProductOffer:
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
         self.target_quantity_free = target_quantity_free
+
 
