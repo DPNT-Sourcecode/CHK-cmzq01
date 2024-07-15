@@ -1,12 +1,8 @@
-"""
-Module containing classes representing single/cross product offers.
-"""
+"""Module containing classes representing single/cross product offers."""
 
 
 class SingleProductOffer:
-    """Base class for a single product offer. Not SKU-aware. Holds key information about the offer,
-    and can be used to calculate the price of a quantity of items within this offer.
-    """
+    """Base class for a single product offer."""
 
     def __init__(self, single_unit_price: int):
         """Initialize self.
@@ -171,3 +167,4 @@ class CrossProductOffer:
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
         self.target_quantity_free = target_quantity_free
+
