@@ -160,26 +160,24 @@ class CrossProductOffer:
 
     def __init__(
         self,
+        single_unit_price: str,
         subject_sku: str,
         subject_quantity_buy: int,
         target_sku: str,
-        target_quantity_free: int,
     ):
         """Initialize self.
 
         :param subject_sku: type of SKU to buy to get this offer
         :param subject_quantity_buy: quantity of items to buy to get this offer
-        :param target_sku: type of SKU given free as part of this offer
-        :param target_quantity_free: quantity of items given free as part of this offer
+        :param target_sku: type of SKU given one free as part of this offer
         """
         if not (
-            isinstance(subject_sku, str)
+            isinstance(single_unit_price, int)
+            and isinstance(subject_sku, str)
             and isinstance(subject_quantity_buy, int)
             and isinstance(target_sku, str)
-            and isinstance(target_quantity_free, int)
         ):
             raise TypeError
         self.subject_sku = subject_sku
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
-        self.target_quantity_free = target_quantity_free

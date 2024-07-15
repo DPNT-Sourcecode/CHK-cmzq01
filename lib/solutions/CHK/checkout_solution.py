@@ -5,6 +5,7 @@ from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
 
+from basket import Basket
 
 def compute_price_of_single_item_type(
     quantity: int, single_item_price: int, offer: tuple[int, int] = None
@@ -36,7 +37,10 @@ def compute_price_of_single_item_type(
         ) * single_item_price
 
 
-def checkout(skus: str) -> int:
+OFFER_DATABASE = {}
+
+
+def checkout_old(skus: str) -> int:
     """Input SKU string. Returns total price including the offers available.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
@@ -88,3 +92,8 @@ def checkout(skus: str) -> int:
 
     # Return total price
     return total_price
+
+
+def checkout(skus: str) -> int:
+    basket = Basket(skus, offer_database=OFFER_DATABASE)
+    return basket.final_price

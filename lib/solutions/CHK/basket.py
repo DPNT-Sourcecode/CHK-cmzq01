@@ -1,7 +1,37 @@
 from collections import Counter
+from offers import *
 
 # This should be from global config or external database, but for time's sake is kept here for now.
-PRICE_LIST = {
+OFFER_DATABASE = {
+    "A": {
+        LadderOffer(
+            50,
+            [
+                LadderDiscount(3, 130),
+                LadderDiscount(5, 200),
+            ]
+        )
+    },
+    "B": {
+        LadderOffer(
+            30,
+            [
+                LadderDiscount(2, 45),
+            ]
+        )
+    },
+    "C": {
+        SingleProductOffer(20)
+    },
+    "D": {
+        SingleProductOffer(15)
+    },
+    "E": {
+        CrossProductOffer(40, "E", 2, "B", 1)
+    },
+    "F": {
+        BgfOffer(10, 2)
+    },
 
 }
 
@@ -12,18 +42,21 @@ class BasketItem:
             raise TypeError
 
         self.quantity_raw = quantity_raw
-        self.quantity_corrected = None
+        self.quantity_corrected = quantity_raw
         self.price = None
 
 
 class Basket:
-    def __init__(self, skus: str, price_list: dict):
+    def __init__(self, skus: str, offer_database: dict):
         # skus must be a string.
         if not isinstance(skus, str):
             raise TypeError("skus must be a string")
 
+        if not isinstance(offer_database, dict):
+            raise TypeError("offer_database must be a dict")
+
         # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
-        if not set(skus) <= price_list.keys():
+        if not set(skus) <= offer_database.keys():
             raise IndexError
 
         # Get counts of SKUs - of the form {"A": count_a, "B": count_b, etc ....}
@@ -32,21 +65,34 @@ class Basket:
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
         self.basket_contents = {k: BasketItem(v) for k, v in sku_counter}
 
+        self.offer_database = offer_database
+
         # Basket uses cross-product offers associated to certain SKUs to correct the basket item counts
-        self.apply_cross_product_offers()
+        self.apply_all_cross_product_offers()
 
         # Basket updates the price of each basket item
-        self.calculate_all_prices()
+        (self.
+         calculate_all_prices())
 
         # Basket sets the final price
         self.final_price = sum([basket_item.price for basket_item in self.basket_contents])
 
-    def apply_cross_product_offers(self):
-        pass
+    def apply_all_cross_product_offers(self):
+        for sku, basket_item in self.basket_contents:
+            offer = self.offer_database[sku]
+            if isinstance(offer, CrossProductOffer):
+                self.apply_cross_product_offer(offer)
+
+    def apply_cross_product_offer(self, offer: CrossProductOffer):
+        target_sku = offer.target_sku
+        target_quantity = self.basket_contents[target_sku].quantity_corrected
+        subject_sku = offer.subject_sku
+        subject_quantity = self.basket_contents[subject_sku].quantity_raw
+        subject_quantity_buy = offer.subject_quantity_buy
+        self.basket_contents[target_sku].quantity_corrected = max(0, target_quantity - (subject_quantity // subject_quantity_buy))
 
     def calculate_all_prices(self):
-        pass
-
-    def get_final_price(self):
-        pass
+        for sku, basket_item in self.basket_contents:
+            offer = self.offer_database[sku]
+            basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
 
