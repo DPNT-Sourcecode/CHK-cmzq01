@@ -117,6 +117,24 @@ class TestOffers:
                 ],
                 DuplicateLadderDiscountException
             ),
+            (
+                1,
+                50,
+                [
+                    LadderDiscount(3, 130),
+                    LadderDiscount(1, 200),
+                ],
+                InvalidLadderDiscountQuantityException
+            ),
+            (
+                1,
+                50,
+                [
+                    LadderDiscount(3, 130),
+                    LadderDiscount(0, 200),
+                ],
+                InvalidLadderDiscountQuantityException
+            ),
         ]
     )
     def test_calculate_price_ladder_offer_exceptions(
@@ -125,5 +143,3 @@ class TestOffers:
         with pytest.raises(expected_exception_class):
             offer = LadderOffer(single_unit_price, ladder_discounts)
             offer.calculate_price(quantity)
-
-

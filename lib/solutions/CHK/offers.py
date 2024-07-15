@@ -39,6 +39,9 @@ class LadderDiscount:
     def __lt__(self, other):
         return self.quantity < other.quantity
 
+    def __hash__(self):
+        return hash(self.quantity)
+
 
 class DuplicateLadderDiscountException(Exception):
     pass
@@ -78,6 +81,4 @@ class LadderOffer(SingleProductOffer):
 
         # Return total price
         return price
-
-
 
