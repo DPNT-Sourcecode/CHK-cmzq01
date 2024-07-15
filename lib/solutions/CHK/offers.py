@@ -77,15 +77,34 @@ class LadderDiscount:
         self.total_price = total_price
 
     def __eq__(self, other):
+        """Equals magic method.
+
+        :param other: other instance
+        :return: whether self is equal to other
+        """
         return self.quantity == other.quantity
 
     def __gt__(self, other):
+        """Greater than magic method.
+
+        :param other: other instance
+        :return: whether self is greater than other
+        """
         return self.quantity > other.quantity
 
     def __lt__(self, other):
+        """Less than magic method.
+
+        :param other: other instance
+        :return: whether self is less than other
+        """
         return self.quantity < other.quantity
 
     def __hash__(self):
+        """Hash magic method.
+
+        :return: hash of instance
+        """
         return hash(self.quantity)
 
 
@@ -93,8 +112,7 @@ class LadderOffer(SingleProductOffer):
     """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts"."""
 
     def __init__(self, single_unit_price: int, ladder_discounts: list[LadderDiscount]):
-        """Input single_unit_price and list of ladder discounts. ladder_discounts will be sorted by quantity in reverse,
-        and have basic "remainder" ladder appended before setting as attribute.
+        """Initialize self.
 
         :param single_unit_price: price of a single unit (the final basic "remainder" ladder considered)
         :param ladder_discounts: list of LadderDiscounts (no ladder may contain 0 or 1 as quantity)
@@ -138,9 +156,7 @@ class LadderOffer(SingleProductOffer):
 
 
 class CrossProductOffer:
-    """Class representing a cross-product offer that is SKU-aware. To be used by Baskets to correct the count of each
-    item type before computing the final price, so other single product offers can be applied.
-    """
+    """Class representing a cross-product offer that is SKU-aware."""
 
     def __init__(
         self,
@@ -167,4 +183,5 @@ class CrossProductOffer:
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
         self.target_quantity_free = target_quantity_free
+
 
