@@ -105,5 +105,25 @@ class TestOffers:
         offer = LadderOffer(single_unit_price, ladder_discounts)
         assert offer.calculate_price(quantity) == expected_price
 
+    @pytest.mark.parametrize(
+    "quantity, single_unit_price, ladder_discounts, expected_exception_class",
+        [
+            (
+                1,
+                50,
+                [
+                    LadderDiscount(3, 130),
+                    LadderDiscount(3, 200),
+                ],
+                DuplicateLadderDiscountException
+            ),
+        ]
+    )
+    def test_calculate_price_ladder_offer_exceptions(
+            self, quantity, single_unit_price, ladder_discounts, expected_exception_class
+    ):
+        with pytest.raises(expected_exception_class):
+            offer = LadderOffer(single_unit_price, ladder_discounts)
+            offer.calculate_price(quantity)
 
 

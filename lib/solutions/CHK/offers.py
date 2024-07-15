@@ -40,16 +40,34 @@ class LadderDiscount:
         return self.quantity < other.quantity
 
 
+class DuplicateLadderDiscountException(Exception):
+    pass
+
+
+class InvalidLadderDiscountQuantityException(Exception):
+    pass
+
+
 class LadderOffer(SingleProductOffer):
     def __init__(self, single_unit_price: int, ladder_discounts: list[LadderDiscount]):
         super().__init__(single_unit_price)
         self.single_unit_price = single_unit_price
-        # TODO: check for duplicated "quantity" fields across ladder_discounts.
+
+        # Check for duplicate discounts in the ladder, which don't make sense.
+        if len(ladder_discounts) != len(set(ladder_discounts)):
+            raise DuplicateLadderDiscountException
+
+        # TODO: some other validation checking on ladder_discounts.
+        if any(ladder_discount.quantity <= 1 for ladder_discount in ladder_discounts):
+            raise(InvalidLadderDiscountQuantityException)
+        # Add the final ladder discount for the single unit price.
         self.ladder_discounts = (ladder_discounts + [LadderDiscount(1, single_unit_price)])
         self.ladder_discounts.sort(reverse=True)
 
     def calculate_price(self, quantity: int) -> int:
-        # variables to keep track going down the ladders
+        if not isinstance(quantity, int):
+            raise TypeError
+        # variables to keep track of, going down the ladders.
         y = quantity
         price = 0
 
