@@ -49,6 +49,22 @@ class TestOffers:
         offer = BgfOffer(single_unit_price, buy_quantity)
         assert offer.calculate_price(quantity) == expected_price
 
+    @pytest.mark.parametrize(
+        "quantity, single_unit_price, buy_quantity, expected_exception_class",
+        [
+            (10.5, 5, 3, TypeError),
+            (10, 5.5, 3, TypeError),
+            (10, 5, 3.5, TypeError),
+        ],
+    )
+    def test_calculate_price_bgf_offer_exceptions(
+            self, quantity, single_unit_price, buy_quantity, expected_exception_class
+    ):
+        with pytest.raises(expected_exception_class):
+            offer = BgfOffer(single_unit_price, buy_quantity)
+            offer.calculate_price(quantity)
+
+
 
 
 
