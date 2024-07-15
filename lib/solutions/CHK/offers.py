@@ -171,5 +171,3 @@ class CrossProductOffer:
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
         self.target_quantity_free = target_quantity_free
-
-
