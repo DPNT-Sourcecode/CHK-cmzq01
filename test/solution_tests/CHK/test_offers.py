@@ -35,19 +35,20 @@ class TestOffers:
             offer.calculate_price(quantity)
 
     @pytest.mark.parametrize(
-        "quantity, single_unit_price, buy_quantity, get_quantity, expected_price",
+        "quantity, single_unit_price, buy_quantity, expected_price",
         [
-            (1, 10, 2, 1, 10),
-            (2, 10, 2, 1, 20),
-            (3, 10, 2, 1, 20),
-            (10, 100, 8, 2, 600),
+            (1, 10, 2, 10),
+            (2, 10, 2, 20),
+            (3, 10, 2, 20),
+            (10, 100, 8, 900),
         ],
     )
     def test_calculate_price_bgf_offer(
-            self, quantity, single_unit_price, buy_quantity, get_quantity, expected_price
+            self, quantity, single_unit_price, buy_quantity, expected_price
     ):
-        offer = BgfOffer(single_unit_price, buy_quantity, get_quantity)
+        offer = BgfOffer(single_unit_price, buy_quantity)
         assert offer.calculate_price(quantity) == expected_price
+
 
 
 
