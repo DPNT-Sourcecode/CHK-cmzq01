@@ -83,6 +83,20 @@ class TestOffers:
                     ],
                     330
             ),
+            (
+                    9, 50, [
+                        LadderDiscount(3, 130),
+                        LadderDiscount(5, 200),
+                    ],
+                    380
+            ),
+            (
+                    10, 50, [
+                        LadderDiscount(3, 130),
+                        LadderDiscount(5, 200),
+                    ],
+                    400
+            ),
         ],
     )
     def test_calculate_price_ladder_offer(
@@ -90,5 +104,6 @@ class TestOffers:
     ):
         offer = LadderOffer(single_unit_price, ladder_discounts)
         assert offer.calculate_price(quantity) == expected_price
+
 
 
