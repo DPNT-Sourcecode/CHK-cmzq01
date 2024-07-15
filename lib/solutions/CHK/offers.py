@@ -7,6 +7,7 @@ class SingleProductOffer:
     """Base class for a single product offer. Not SKU-aware. Holds key information about the offer,
     and can be used to calculate the price of a quantity of items within this offer.
     """
+
     def __init__(self, single_unit_price: int):
         """Initialize self.
 
@@ -28,8 +29,8 @@ class SingleProductOffer:
 
 
 class BgfOffer(SingleProductOffer):
-    """Buy X get 1 free offer class.
-    """
+    """Buy X get 1 free offer class."""
+
     def __init__(self, single_unit_price: int, buy_quantity: int):
         """Initialize self.
 
@@ -53,30 +54,29 @@ class BgfOffer(SingleProductOffer):
 
 
 class DuplicateLadderDiscountException(Exception):
-    """Custom exception raised when duplicate LadderDiscount quantity values are seen in a LadderOffer.
-    """
+    """Custom exception raised when duplicate LadderDiscount quantity values are seen in a LadderOffer."""
+
     pass
 
 
 class InvalidLadderDiscountQuantityException(Exception):
-    """Custom exception raised when LadderDiscount quantity is 0 or 1.
-    """
+    """Custom exception raised when LadderDiscount quantity is 0 or 1."""
+
     pass
 
 
 class LadderDiscount:
-    """Class representing a "Ladder Discount". For example "buy 3 for 80".
-    """
+    """Class representing a "Ladder Discount". For example "buy 3 for 80"."""
+
     def __init__(self, quantity: int, total_price: int):
         """Initialize self.
 
         :param quantity: number of items to qualify for discount
         :param total_price: total price of the items
         """
-        if not(isinstance(quantity, int) and isinstance(total_price, int)):
+        if not (isinstance(quantity, int) and isinstance(total_price, int)):
             raise TypeError
-        if quantity <= 1:
-            raise Exception
+
         self.quantity = quantity
         self.total_price = total_price
 
@@ -94,8 +94,8 @@ class LadderDiscount:
 
 
 class LadderOffer(SingleProductOffer):
-    """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts".
-    """
+    """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts"."""
+
     def __init__(self, single_unit_price: int, ladder_discounts: list[LadderDiscount]):
         """Input single_unit_price and list of ladder discounts. ladder_discounts will be sorted by quantity in reverse,
         and have basic "remainder" ladder appended before setting as attribute.
@@ -114,7 +114,9 @@ class LadderOffer(SingleProductOffer):
         if any(ladder_discount.quantity <= 1 for ladder_discount in ladder_discounts):
             raise InvalidLadderDiscountQuantityException
         # Add the final ladder discount for the single unit price.
-        self.ladder_discounts = (ladder_discounts + [LadderDiscount(1, single_unit_price)])
+        self.ladder_discounts = ladder_discounts + [
+            LadderDiscount(1, single_unit_price)
+        ]
         self.ladder_discounts.sort(reverse=True)
 
     def calculate_price(self, quantity: int) -> int:
@@ -143,12 +145,13 @@ class CrossProductOffer:
     """Class representing a cross-product offer that is SKU-aware. To be used by Baskets to correct the count of each
     item type before computing the final price, so other single product offers can be applied.
     """
+
     def __init__(
-            self,
-            subject_sku: str,
-            subject_quantity_buy: int,
-            target_sku: str,
-            target_quantity_free: int
+        self,
+        subject_sku: str,
+        subject_quantity_buy: int,
+        target_sku: str,
+        target_quantity_free: int,
     ):
         """Initialize self.
 
@@ -158,10 +161,10 @@ class CrossProductOffer:
         :param target_quantity_free: quantity of items given free as part of this offer
         """
         if not (
-                isinstance(subject_sku, str)
-                and isinstance(subject_quantity_buy, int)
-                and isinstance(target_sku, str)
-                and isinstance(target_quantity_free, int)
+            isinstance(subject_sku, str)
+            and isinstance(subject_quantity_buy, int)
+            and isinstance(target_sku, str)
+            and isinstance(target_quantity_free, int)
         ):
             raise TypeError
         self.subject_sku = subject_sku
