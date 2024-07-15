@@ -19,3 +19,19 @@ class TestOffers:
     ):
         offer = SingleProductOffer(single_unit_price)
         assert offer.calculate_price(quantity) == expected_price
+
+    @pytest.mark.parametrize(
+        "quantity, single_unit_price, expected_exception_class",
+        [
+            (10.5, 5, TypeError),
+            (10, 5.5, TypeError),
+        ],
+    )
+    def test_calculate_price_single_product_offer(
+            self, quantity, single_unit_price, expected_exception_class
+    ):
+        with pytest.raises(expected_exception_class):
+            offer = SingleProductOffer(single_unit_price)
+            offer.calculate_price(quantity)
+
+
