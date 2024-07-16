@@ -1,8 +1,9 @@
 """checkout_solution challenge."""
-
+import os
 from collections import Counter
 
 from CHK.basket import Basket
+from CHK.parse_offer_database import parse_offer_database_file
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -37,65 +38,14 @@ def compute_price_of_single_item_type(
             quantity % offer[0]
         ) * single_item_price
 
-# TODO - load this by parsing a table like in challenge .txt files
-OFFER_DATABASE = {}
 
-
-def checkout_old(skus: str) -> int:
-    """Input SKU string. Returns total price including the offers available.
-
-    :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
-    :return: total price of items in basket.
-    """
-    # set of items available
-    item_set = {"A", "B", "C", "D", "E", "F"}
-
-    # skus must be a string.
-    if not isinstance(skus, str):
-        raise TypeError("skus must be a string")
-
-    # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
-    if not set(skus) <= item_set:
-        return -1
-
-    # count occurences of each character in skus
-    sku_counter = Counter(skus)
-
-    # increment total price with each item type
-    total_price = 0
-
-    # SKU "A": 5 for 200, 3 for 130, single for 50
-    a = sku_counter["A"]
-    total_price += (a // 5) * 200 + ((y := a % 5) // 3) * 130 + (y % 3) * 50
-
-    # SKU "B" depends on "E" so left until "E" is completed
-
-    # SKU "C": single for 20
-    c = sku_counter["C"]
-    total_price += c * 20
-
-    # SKU "D": single for 15
-    d = sku_counter["D"]
-    total_price += d * 15
-
-    # SKU "E": single for 40, but buying 2 reduces number of "B" by 1
-    e = sku_counter["E"]
-    b = sku_counter["B"]
-    total_price += e * 40
-    b = max(0, b - (e // 2))
-
-    # SKU "B": 2 for 45, single for 30
-    total_price += (b // 2) * 45 + (b % 2) * 30
-
-    # SKU "F": buy 2, get 1 free
-    f = sku_counter["F"]
-    total_price += (f - f // 3) * 10
-
-    # Return total price
-    return total_price
+# Load the database of offers
+database_filename = f"{os.getcwd()}/offer_database.txt"
+OFFER_DATABASE = parse_offer_database_file(database_filename)
 
 
 def checkout(skus: str) -> int:
+    global OFFER_DATABASE
     """Input SKU string. Returns total price including the offers available.
 
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
@@ -103,3 +53,5 @@ def checkout(skus: str) -> int:
     """
     basket = Basket(skus, offer_database=OFFER_DATABASE)
     return basket.final_price
+
+
