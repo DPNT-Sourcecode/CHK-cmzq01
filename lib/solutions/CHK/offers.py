@@ -24,10 +24,10 @@ class SingleProductOffer:
         return self.single_unit_price * quantity
 
     def __eq__(self, other):
-        """
+        """Equality magic method.
 
-        :param other:
-        :return:
+        :param other: other instance
+        :return: if self is equal to other
         """
         return self.single_unit_price == other.single_unit_price
 
@@ -57,6 +57,11 @@ class BgfOffer(SingleProductOffer):
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
     def __eq__(self, other):
+        """Equality magic method.
+
+        :param other: other instance
+        :return: if self is equal to other
+        """
         return (
             self.single_unit_price == other.single_unit_price
             and self.buy_quantity == other.buy_quantity
@@ -151,6 +156,11 @@ class LadderOffer(SingleProductOffer):
         self.ladder_discounts.sort(reverse=True)
 
     def __eq__(self, other):
+        """Equality magic method.
+
+        :param other: other instance
+        :return: if self is equal to other
+        """
         return (
             self.single_unit_price == other.single_unit_price
             and self.ladder_discounts == other.ladder_discounts
@@ -207,6 +217,11 @@ class CrossProductOffer:
         self.target_sku = target_sku
 
     def __eq__(self, other):
+        """Equality magic method.
+
+        :param other: other instance
+        :return: if self is equal to other
+        """
         return (
             self.single_unit_price == other.single_unit_price
             and self.subject_sku == other.subject_sku
@@ -223,5 +238,3 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
-
-

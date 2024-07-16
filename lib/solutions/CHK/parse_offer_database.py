@@ -1,3 +1,5 @@
+"""Module containing functions to parse offer database file."""
+
 import re
 
 from CHK.offers import (
@@ -23,6 +25,11 @@ offer_database_second_line_patter = (
 
 
 def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
+    """Input offer database line. Return tuple of the form <sku>, <offer>.
+
+    :param line: line to parse
+    :return: tuple of the form <sku>, <offer>
+    """
     global single_ladder_pattern, double_ladder_pattern, cross_product_and_bgf_pattern
     return_sku = None
     return_offer = None
@@ -74,15 +81,22 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
 
 
 class InvalidOfferDatabaseFile(Exception):
+    """Exception raised if database file invalid."""
+
     pass
 
 
 def parse_offer_database_file(filename):
+    """Input offer database filename. Returns dictionary containing the offers for each SKU.
+
+    :param filename: offer database file name
+    :return: dictionary with entries like <sku>: <offer>
+    """
     offer_database = {}
     with open(filename) as f:
         try:
             # Check second line for column signature
-            l1 = f.readline().rstrip("\n")
+            f.readline().rstrip("\n")
             l2 = f.readline().rstrip("\n")
             if not re.match(offer_database_second_line_patter, l2):
                 raise InvalidOfferDatabaseFile
@@ -93,4 +107,3 @@ def parse_offer_database_file(filename):
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
-
