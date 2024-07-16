@@ -103,5 +103,3 @@ def checkout(skus: str) -> int:
     """
     basket = Basket(skus, offer_database=OFFER_DATABASE)
     return basket.final_price
-
-

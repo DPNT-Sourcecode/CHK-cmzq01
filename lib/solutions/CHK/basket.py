@@ -91,4 +91,3 @@ class Basket:
         for sku, basket_item in self.basket_contents:
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
-

@@ -31,4 +31,3 @@ def small_price_list():
 #     ):
 #         offer = SingleProductOffer(single_unit_price)
 #         assert offer.calculate_price(quantity) == expected_price
-
