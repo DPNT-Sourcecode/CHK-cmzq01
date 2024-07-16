@@ -51,13 +51,11 @@ class BgfOffer(SingleProductOffer):
 
 class DuplicateLadderDiscountException(Exception):
     """Custom exception raised when duplicate LadderDiscount quantity values are seen in a LadderOffer."""
-
     pass
 
 
 class InvalidLadderDiscountQuantityException(Exception):
     """Custom exception raised when LadderDiscount quantity is 0 or 1."""
-
     pass
 
 
@@ -192,3 +190,4 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
