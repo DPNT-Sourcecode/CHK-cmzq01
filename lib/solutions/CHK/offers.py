@@ -24,6 +24,11 @@ class SingleProductOffer:
         return self.single_unit_price * quantity
 
     def __eq__(self, other):
+        """
+
+        :param other:
+        :return:
+        """
         return self.single_unit_price == other.single_unit_price
 
 
@@ -218,4 +223,5 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
 
