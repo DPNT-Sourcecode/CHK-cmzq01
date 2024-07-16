@@ -35,7 +35,3 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
             return_offer = CrossProductOffer(single_unit_price, subject_sku, buy_quantity, target_sku)
 
     return return_sku, return_offer
-
-
-
-

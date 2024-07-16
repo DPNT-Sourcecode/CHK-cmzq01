@@ -28,6 +28,3 @@ class TestParseOfferDatabase:
         sku, offer = parse_line(line)
         assert sku == expected_sku
         assert offer.__hash__ == expected_offer.__hash__
-
-
-
