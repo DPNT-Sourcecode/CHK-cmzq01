@@ -1,25 +1,29 @@
 """Module containing class representing basket of items at checkout."""
 
 from collections import Counter
-from CHK.offers import *
+from CHK.offers import (
+    SingleProductOffer,
+    BgfOffer,
+    LadderOffer,
+    CrossProductOffer,
+    LadderDiscount,
+)
 
 # This should be from global config or external database, but for time's sake is kept here for now.
 OFFER_DATABASE = {
-    "A":
-        LadderOffer(
-            50,
-            [
-                LadderDiscount(3, 130),
-                LadderDiscount(5, 200),
-            ],
-        ),
-    "B":
-        LadderOffer(
-            30,
-            [
-                LadderDiscount(2, 45),
-            ],
-        ),
+    "A": LadderOffer(
+        50,
+        [
+            LadderDiscount(3, 130),
+            LadderDiscount(5, 200),
+        ],
+    ),
+    "B": LadderOffer(
+        30,
+        [
+            LadderDiscount(2, 45),
+        ],
+    ),
     "C": SingleProductOffer(20),
     "D": SingleProductOffer(15),
     "E": CrossProductOffer(40, "E", 2, "B"),
@@ -34,15 +38,11 @@ class BasketItem:
 
         self.quantity_raw = quantity_raw
         # For unit testing
-        self.quantity_corrected = quantity_raw if quantity_corrected is None else quantity_corrected
+        self.quantity_corrected = (
+            quantity_raw if quantity_corrected is None else quantity_corrected
+        )
         self.price = price
 
-    # def __hash__(self):
-    #     """Hash magic method.
-    #
-    #     :return: hash of instance
-    #     """
-    #     return hash(str(self.quantity_raw) + str(self.quantity_corrected) + str(self.price))
 
 class Basket:
     def __init__(self, skus: str, offer_database: dict):
@@ -96,4 +96,5 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
