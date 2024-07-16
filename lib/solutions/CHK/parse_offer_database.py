@@ -7,6 +7,7 @@ single_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\
 double_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+),\s*(\d+)[A-Z]\s+for\s+(\d+)\s*\|"
 cross_product_and_bgf_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+get\s+one\s+([A-Z])\s+free\s*\|"
 
+offer_database_second_line_patter = r"\|\s.*Item\s.*\|\s.*Price\s.*\|\s.*Special offers\s.*\|"
 
 def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
     global single_ladder_pattern, double_ladder_pattern, cross_product_and_bgf_pattern
@@ -40,3 +41,23 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
             return_offer = CrossProductOffer(int(single_unit_price), subject_sku, int(buy_quantity), target_sku)
 
     return return_sku, return_offer
+
+class InvalidOfferDatabaseFile(Exception):
+    pass
+
+
+def parse_offer_database_file(filename):
+    offer_database = {}
+    with open(filename) as f:
+        try:
+            # Check second line for column signature
+            l1 = f.readline().rstrip("\n")
+            l2 = f.readline().rstrip("\n")
+            if not re.match(offer_database_second_line_patter, l2):
+                raise InvalidOfferDatabaseFile
+            while line := f.readline():
+                sku, offer = parse_line(line)
+                offer_database[sku] = offer
+        except:
+            raise InvalidOfferDatabaseFile
+

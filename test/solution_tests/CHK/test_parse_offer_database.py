@@ -1,8 +1,32 @@
+import os
+
 import pytest
 
-from solutions.CHK.parse_offer_database import parse_line
+from solutions.CHK.parse_offer_database import parse_line, parse_offer_database_file
 from solutions.CHK.offers import *
 
+
+@pytest.fixture
+def expected_offer_database_dict():
+    return {
+        "A": LadderOffer(
+            50,
+            [
+                LadderDiscount(3, 130),
+                LadderDiscount(5, 200),
+            ],
+        ),
+        "B": LadderOffer(
+            30,
+            [
+                LadderDiscount(2, 45),
+            ],
+        ),
+        "C": SingleProductOffer(20),
+        "D": SingleProductOffer(15),
+        "E": CrossProductOffer(40, "E", 2, "B"),
+        "F": BgfOffer(10, 2),
+    }
 
 
 class TestParseOfferDatabase:
@@ -42,4 +66,9 @@ class TestParseOfferDatabase:
         sku, offer = parse_line(line)
         assert sku == expected_sku
         assert offer == expected_offer
+
+
+def test_parse_offer_database_file(self, expected_offer_database_dict):
+    test_database_filename = f"{os.getcwd()/}"
+    actual_offer_database_dict = parse_offer_database_file("")
 
