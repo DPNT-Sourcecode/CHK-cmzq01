@@ -1,13 +1,8 @@
 """Module containing class representing basket of items at checkout."""
+
 import os
 from collections import Counter
-from CHK.offers import (
-    SingleProductOffer,
-    BgfOffer,
-    LadderOffer,
-    CrossProductOffer,
-    LadderDiscount,
-)
+from CHK.offers import CrossProductOffer
 from CHK.parse_offer_database import parse_offer_database_file
 
 
@@ -64,7 +59,10 @@ class Basket:
         all_skus = offer_database.keys()
 
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
-        self.basket_contents = {k: BasketItem(sku_counter[k]) if k in sku_counter else BasketItem(0) for k in all_skus}
+        self.basket_contents = {
+            k: BasketItem(sku_counter[k]) if k in sku_counter else BasketItem(0)
+            for k in all_skus
+        }
 
         self.offer_database = offer_database
 
@@ -112,5 +110,6 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
 

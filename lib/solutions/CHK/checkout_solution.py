@@ -1,4 +1,5 @@
 """checkout_solution challenge."""
+
 import os
 from collections import Counter
 
@@ -45,6 +46,9 @@ def checkout(skus: str) -> int:
     :param skus: string of the SKUs for items in the basket. SKUs not present in item_prices are ignored.
     :return: total price of items in basket.
     """
-    basket = Basket(skus)
-    return basket.final_price
+    try:
+        basket = Basket(skus)
+        return basket.final_price
+    except:
+        return -1
 

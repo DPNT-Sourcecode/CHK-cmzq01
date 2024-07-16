@@ -52,16 +52,21 @@ class BgfOffer(SingleProductOffer):
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
     def __eq__(self, other):
-        return self.single_unit_price == other.single_unit_price and self.buy_quantity == other.buy_quantity
+        return (
+            self.single_unit_price == other.single_unit_price
+            and self.buy_quantity == other.buy_quantity
+        )
 
 
 class DuplicateLadderDiscountException(Exception):
     """Custom exception raised when duplicate LadderDiscount quantity values are seen in a LadderOffer."""
+
     pass
 
 
 class InvalidLadderDiscountQuantityException(Exception):
     """Custom exception raised when LadderDiscount quantity is 0 or 1."""
+
     pass
 
 
@@ -125,7 +130,9 @@ class LadderOffer(SingleProductOffer):
         self.single_unit_price = single_unit_price
 
         # Check for duplicate discounts in the ladder, which don't make sense.
-        ladder_discount_quantities = [ladder_discount.quantity for ladder_discount in ladder_discounts]
+        ladder_discount_quantities = [
+            ladder_discount.quantity for ladder_discount in ladder_discounts
+        ]
         if len(ladder_discount_quantities) != len(set(ladder_discount_quantities)):
             raise DuplicateLadderDiscountException
 
@@ -140,8 +147,8 @@ class LadderOffer(SingleProductOffer):
 
     def __eq__(self, other):
         return (
-                self.single_unit_price == other.single_unit_price
-                and self.ladder_discounts == other.ladder_discounts
+            self.single_unit_price == other.single_unit_price
+            and self.ladder_discounts == other.ladder_discounts
         )
 
     def calculate_price(self, quantity: int) -> int:
@@ -196,10 +203,10 @@ class CrossProductOffer:
 
     def __eq__(self, other):
         return (
-            self.single_unit_price == other.single_unit_price and
-            self.subject_sku == other.subject_sku and
-            self.subject_quantity_buy == other.subject_quantity_buy and
-            self.target_sku == other.target_sku
+            self.single_unit_price == other.single_unit_price
+            and self.subject_sku == other.subject_sku
+            and self.subject_quantity_buy == other.subject_quantity_buy
+            and self.target_sku == other.target_sku
         )
 
     def calculate_price(self, quantity: int) -> int:
@@ -211,3 +218,4 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
