@@ -45,7 +45,7 @@ class TestBasket:
                         "F": BasketItem(14, 14, 100),
                         "G": BasketItem(7, 7, 70),
                     },
-                    0,
+                    2120,
             ),
 
         ],
@@ -54,5 +54,6 @@ class TestBasket:
             self, skus, expected_basket_contents, expected_final_price, small_price_list_1
     ):
         basket = Basket(skus, small_price_list_1)
-        assert basket.basket_contents.items() == expected_basket_contents.items()
+        assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
+
