@@ -32,7 +32,7 @@ def small_price_list_1():
 class TestBasket:
 
     @pytest.mark.parametrize(
-        "skus, expected_basket_contents",
+        "skus, expected_basket_contents, expected_final_price",
         [
             (
                     "A" * 16 + "B" * 1 + "C" * 18 + "D" * 12 + "E" * 20 + "F" * 14 + "G" * 7,
@@ -44,15 +44,15 @@ class TestBasket:
                         "E": BasketItem(20, 20, 0),
                         "F": BasketItem(14, 14, 0),
                         "G": BasketItem(7, 7, 0),
+                    },
+                    0,
+            ),
 
-                    }),
         ],
     )
     def test_basket_apply_all_cross_product_offers(
-            self, skus, expected_basket_contents, small_price_list_1
+            self, skus, expected_basket_contents, expected_final_price, small_price_list_1
     ):
         basket = Basket(skus, small_price_list_1)
         assert basket.basket_contents == expected_basket_contents
-
-
-
+        assert basket.final_price == expected_final_price
