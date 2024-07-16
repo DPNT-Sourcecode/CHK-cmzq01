@@ -1,7 +1,7 @@
 """Module containing class representing basket of items at checkout."""
 
 from collections import Counter
-from offers import *
+from CHK.offers import *
 
 # This should be from global config or external database, but for time's sake is kept here for now.
 OFFER_DATABASE = {
@@ -24,7 +24,7 @@ OFFER_DATABASE = {
     },
     "C": {SingleProductOffer(20)},
     "D": {SingleProductOffer(15)},
-    "E": {CrossProductOffer(40, "E", 2, "B", 1)},
+    "E": {CrossProductOffer(40, "E", 2, "B")},
     "F": {BgfOffer(10, 2)},
 }
 
@@ -91,3 +91,4 @@ class Basket:
         for sku, basket_item in self.basket_contents:
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+

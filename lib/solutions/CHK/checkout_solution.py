@@ -2,7 +2,7 @@
 
 from collections import Counter
 
-# from basket import Basket
+from CHK.basket import Basket
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -103,3 +103,4 @@ def checkout(skus: str) -> int:
 #     """
 #     basket = Basket(skus, offer_database=OFFER_DATABASE)
 #     return basket.final_price
+
