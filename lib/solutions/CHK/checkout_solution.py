@@ -1,10 +1,6 @@
 """checkout_solution challenge."""
 
-import os
-from collections import Counter
-
 from CHK.basket import Basket
-from CHK.parse_offer_database import parse_offer_database_file
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -51,4 +47,5 @@ def checkout(skus: str) -> int:
         return basket.final_price
     except:
         return -1
+
 
