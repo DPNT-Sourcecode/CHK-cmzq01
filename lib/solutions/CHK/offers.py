@@ -202,7 +202,3 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
-
-
-
-

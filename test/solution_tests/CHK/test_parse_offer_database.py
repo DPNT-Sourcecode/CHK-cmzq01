@@ -37,6 +37,3 @@ class TestParseOfferDatabase:
         sku, offer = parse_line(line)
         assert sku == expected_sku
         assert offer == expected_offer
-
-
-
