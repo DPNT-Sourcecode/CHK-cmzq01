@@ -24,7 +24,7 @@ class SingleProductOffer:
         return self.single_unit_price * quantity
 
     def __hash__(self):
-        return str(self.single_unit_price)
+        return hash(self.single_unit_price)
 
     def __eq__(self, other):
         return hash(self) == hash(other)
@@ -196,4 +196,5 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
 
