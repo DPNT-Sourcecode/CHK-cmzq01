@@ -2,6 +2,13 @@ import pytest
 
 from solutions.CHK.basket import *
 
+# useful: python commands to generate random SKUs
+# from string import ascii_uppercase
+# "".join([f"\"{char}\" * {randint(0,20)}{' + ' if i != len(ascii_uppercase) - 1 else ''}" \
+#   for (i, char) in enumerate(ascii_uppercase)])
+# chars = ["A", "B", "C"]
+# "".join([f"\"{char}\" * {randint(0,20)}{' + ' if i != len(chars) - 1 else ''}" for (i, char) in enumerate(chars)])
+
 
 @pytest.fixture
 def small_price_list_1():
@@ -50,10 +57,12 @@ class TestBasket:
 
         ],
     )
-    def test_basket_apply_all_cross_product_offers(
+    def test_basket_contents_and_final_price(
             self, skus, expected_basket_contents, expected_final_price, small_price_list_1
     ):
+        # TODO: split this into cross-product application / price calculation using patch/mock
         basket = Basket(skus, small_price_list_1)
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
+
 
