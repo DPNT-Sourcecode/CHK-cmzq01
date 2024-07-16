@@ -89,7 +89,7 @@ class LadderDiscount:
         :param other: other instance
         :return: whether self is equal to other
         """
-        return self.quantity == other.quantity
+        return self.quantity == other.quantity and self.total_price == other.total_price
 
     def __gt__(self, other):
         """Greater than magic method.
@@ -128,7 +128,8 @@ class LadderOffer(SingleProductOffer):
         self.single_unit_price = single_unit_price
 
         # Check for duplicate discounts in the ladder, which don't make sense.
-        if len(ladder_discounts) != len(set(ladder_discounts)):
+        ladder_discount_quantities = [ladder_discount.quantity for ladder_discount in ladder_discounts]
+        if len(ladder_discount_quantities) != len(set(ladder_discount_quantities)):
             raise DuplicateLadderDiscountException
 
         # TODO: possibly some other validation checking on ladder_discounts.
@@ -202,3 +203,4 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
