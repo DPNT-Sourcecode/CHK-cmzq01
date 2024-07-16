@@ -25,7 +25,8 @@ class TestParseOfferDatabase:
     def test_parse_line(
             self, line, expected_sku, expected_offer
     ):
-        d= parse_line(line)
+        d = parse_line(line)
         assert sku == expected_sku
         assert offer == expected_offer
+
 
