@@ -1,12 +1,11 @@
 """checkout_solution challenge."""
 
 from collections import Counter
+
 # from basket import Basket
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-
-
 
 
 def compute_price_of_single_item_type(
@@ -104,5 +103,3 @@ def checkout(skus: str) -> int:
 #     """
 #     basket = Basket(skus, offer_database=OFFER_DATABASE)
 #     return basket.final_price
-
-
