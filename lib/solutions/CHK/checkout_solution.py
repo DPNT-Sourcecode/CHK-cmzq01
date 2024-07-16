@@ -37,7 +37,7 @@ def compute_price_of_single_item_type(
             quantity % offer[0]
         ) * single_item_price
 
-
+# TODO - load this by parsing a table like in challenge .txt files
 OFFER_DATABASE = {}
 
 
@@ -103,3 +103,4 @@ def checkout(skus: str) -> int:
     """
     basket = Basket(skus, offer_database=OFFER_DATABASE)
     return basket.final_price
+
