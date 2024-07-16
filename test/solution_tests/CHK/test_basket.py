@@ -67,7 +67,3 @@ class TestBasket:
         basket = Basket(skus, small_offer_database)
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
-
-
-
-
