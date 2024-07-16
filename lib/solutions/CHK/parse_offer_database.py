@@ -25,18 +25,19 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
         sku, single_unit_price, discount_1_quantity, discount_1_price, discount_2_quantity, discount_2_price = re.findall(double_ladder_pattern, line)[0]
         return_sku = sku
         return_offer = LadderOffer(
-            single_unit_price, [
-                LadderDiscount(discount_1_quantity, discount_1_price),
-                LadderDiscount(discount_2_quantity, discount_2_price),
+            int(single_unit_price), [
+                LadderDiscount(int(discount_1_quantity), int(discount_1_price)),
+                LadderDiscount(int(discount_2_quantity), int(discount_2_price)),
             ]
         )
     elif re.match(cross_product_and_bgf_pattern, line):
         subject_sku, single_unit_price, buy_quantity, target_sku = re.findall(cross_product_and_bgf_pattern, line)[0]
         if subject_sku == target_sku:
             return_sku = subject_sku
-            return_offer = BgfOffer(single_unit_price, buy_quantity)
+            return_offer = BgfOffer(int(single_unit_price), int(buy_quantity))
         else:
             return_sku = subject_sku
-            return_offer = CrossProductOffer(single_unit_price, subject_sku, buy_quantity, target_sku)
+            return_offer = CrossProductOffer(int(single_unit_price), subject_sku, int(buy_quantity), target_sku)
 
     return return_sku, return_offer
+

@@ -54,6 +54,9 @@ class BgfOffer(SingleProductOffer):
             raise TypeError
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
+    def __hash__(self):
+        return hash((self.single_unit_price, self.buy_quantity))
+
 
 class DuplicateLadderDiscountException(Exception):
     """Custom exception raised when duplicate LadderDiscount quantity values are seen in a LadderOffer."""
@@ -196,5 +199,6 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
 
 

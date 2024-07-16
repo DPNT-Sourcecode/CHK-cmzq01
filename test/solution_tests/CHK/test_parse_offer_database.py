@@ -15,6 +15,20 @@ class TestParseOfferDatabase:
                     "C",
                     SingleProductOffer(20),
             ),
+            (
+                    "| U    | 40    | 3U get one U free      |",
+                    "U",
+                    BgfOffer(40, 3),
+            ),
+            (
+                    "| B    | 30    | 2B for 45              |",
+                    "B",
+                    LadderOffer(
+                        30,
+                        [
+                            LadderDiscount(2, 46)
+                        ]),
+            ),
         ],
     )
     def test_parse_line(
@@ -23,4 +37,5 @@ class TestParseOfferDatabase:
         sku, offer = parse_line(line)
         assert sku == expected_sku
         assert offer == expected_offer
+
 
