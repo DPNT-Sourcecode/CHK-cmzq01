@@ -57,8 +57,10 @@ def parse_offer_database_file(filename):
                 raise InvalidOfferDatabaseFile
             while line := f.readline():
                 sku, offer = parse_line(line)
-                offer_database[sku] = offer
+                if sku is not None and offer is not None:
+                    offer_database[sku] = offer
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
+
 
