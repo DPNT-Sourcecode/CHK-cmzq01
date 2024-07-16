@@ -5,27 +5,25 @@ from CHK.offers import *
 
 # This should be from global config or external database, but for time's sake is kept here for now.
 OFFER_DATABASE = {
-    "A": {
+    "A":
         LadderOffer(
             50,
             [
                 LadderDiscount(3, 130),
                 LadderDiscount(5, 200),
             ],
-        )
-    },
-    "B": {
+        ),
+    "B":
         LadderOffer(
             30,
             [
                 LadderDiscount(2, 45),
             ],
-        )
-    },
-    "C": {SingleProductOffer(20)},
-    "D": {SingleProductOffer(15)},
-    "E": {CrossProductOffer(40, "E", 2, "B")},
-    "F": {BgfOffer(10, 2)},
+        ),
+    "C": SingleProductOffer(20),
+    "D": SingleProductOffer(15),
+    "E": CrossProductOffer(40, "E", 2, "B"),
+    "F": BgfOffer(10, 2),
 }
 
 
@@ -73,7 +71,7 @@ class Basket:
         )
 
     def apply_all_cross_product_offers(self):
-        for sku, basket_item in self.basket_contents:
+        for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             if isinstance(offer, CrossProductOffer):
                 self.apply_cross_product_offer(offer)
@@ -89,7 +87,8 @@ class Basket:
         )
 
     def calculate_all_prices(self):
-        for sku, basket_item in self.basket_contents:
+        for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
