@@ -1,6 +1,6 @@
 import re
 
-from offers import SingleProductOffer, CrossProductOffer, LadderOffer, LadderDiscount, BgfOffer
+from CHK.offers import SingleProductOffer, CrossProductOffer, LadderOffer, LadderDiscount, BgfOffer
 
 single_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+),\s*(\d+)([A-Z])\s+for\s+(\d+)\s*\|"
 double_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+),\s*(\d+)[A-Z]\s+for\s+(\d+)\s*\|"
@@ -25,4 +25,5 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
             return subject_sku, BgfOffer(single_unit_price, buy_quantity)
         else:
             return subject_sku, CrossProductOffer(single_unit_price, subject_sku, buy_quantity, target_sku)
+
 
