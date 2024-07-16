@@ -92,12 +92,21 @@ class Basket:
         )
 
     def apply_all_cross_product_offers(self):
+        """Apply all cross-product offers on the basket.
+
+        :return: void
+        """
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             if isinstance(offer, CrossProductOffer):
                 self.apply_cross_product_offer(offer)
 
     def apply_cross_product_offer(self, offer: CrossProductOffer):
+        """Apply single cross-product offer on the basket.
+
+        :param offer: offer to apply
+        :return: void
+        """
         target_sku = offer.target_sku
         target_quantity = self.basket_contents[target_sku].quantity_corrected
         subject_sku = offer.subject_sku
@@ -108,9 +117,14 @@ class Basket:
         )
 
     def calculate_all_prices(self):
+        """Calculate all prices for the individual items in the basket contents.
+
+        :return: void
+        """
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
 
 
