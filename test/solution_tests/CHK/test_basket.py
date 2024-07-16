@@ -37,13 +37,13 @@ class TestBasket:
             (
                     "A" * 16 + "B" * 1 + "C" * 18 + "D" * 12 + "E" * 20 + "F" * 14 + "G" * 7,
                     {
-                        "A": BasketItem(16, 16),
-                        "B": BasketItem(1, 0),
-                        "C": BasketItem(18, 16),
-                        "D": BasketItem(12, 12),
-                        "E": BasketItem(20, 20),
-                        "F": BasketItem(14, 14),
-                        "G": BasketItem(7, 7),
+                        "A": BasketItem(16, 16, 0),
+                        "B": BasketItem(1, 0, 0),
+                        "C": BasketItem(18, 16, 0),
+                        "D": BasketItem(12, 12, 0),
+                        "E": BasketItem(20, 20, 0),
+                        "F": BasketItem(14, 14, 0),
+                        "G": BasketItem(7, 7, 0),
 
                     }),
         ],
@@ -53,5 +53,6 @@ class TestBasket:
     ):
         basket = Basket(skus, small_price_list_1)
         assert basket.basket_contents == expected_basket_contents
+
 
 
