@@ -2,6 +2,7 @@ import re
 
 from CHK.offers import SingleProductOffer, CrossProductOffer, LadderOffer, LadderDiscount, BgfOffer
 
+single_price_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*\|"
 single_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+)\s*\|"
 double_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+),\s*(\d+)[A-Z]\s+for\s+(\d+)\s*\|"
 cross_product_and_bgf_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+get\s+one\s+([A-Z])\s+free\s*\|"
@@ -12,7 +13,11 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
     return_sku = None
     return_offer = None
 
-    if re.match(single_ladder_pattern, line):
+    if re.match(single_price_pattern, line):
+        sku, single_unit_price = re.findall(single_price_pattern, line)[0]
+        return_sku = sku
+        return_offer = SingleProductOffer(int(single_unit_price))
+    elif re.match(single_ladder_pattern, line):
         sku, single_unit_price, discount_quantity, discount_price = re.findall(single_ladder_pattern, line)[0]
         return_sku = sku
         return_offer = LadderOffer(int(single_unit_price), [LadderDiscount(int(discount_quantity), int(discount_price))])

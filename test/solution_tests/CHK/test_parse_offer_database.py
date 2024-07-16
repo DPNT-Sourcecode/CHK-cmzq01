@@ -11,14 +11,9 @@ class TestParseOfferDatabase:
         "line, expected_sku, expected_offer",
         [
             (
-                    "| B    | 30    | 2B for 45              |",
-                    "B",
-                    LadderOffer(
-                        30,
-                        [
-                            LadderDiscount(2, 45)
-                        ]
-                    )
+                    "| C    | 20    |                        |",
+                    "C",
+                    SingleProductOffer(20),
             ),
         ],
     )
@@ -27,4 +22,5 @@ class TestParseOfferDatabase:
     ):
         sku, offer = parse_line(line)
         assert sku == expected_sku
-        assert offer.__hash__ == expected_offer.__hash__
+        assert offer == expected_offer
+

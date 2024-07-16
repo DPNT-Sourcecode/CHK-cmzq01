@@ -23,6 +23,12 @@ class SingleProductOffer:
             raise TypeError
         return self.single_unit_price * quantity
 
+    def __hash__(self):
+        return str(self.single_unit_price)
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
 
 class BgfOffer(SingleProductOffer):
     """Buy X get 1 free offer class."""
@@ -190,3 +196,4 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
