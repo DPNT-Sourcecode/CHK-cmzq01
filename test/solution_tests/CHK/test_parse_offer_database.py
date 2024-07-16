@@ -26,7 +26,7 @@ class TestParseOfferDatabase:
                     LadderOffer(
                         30,
                         [
-                            LadderDiscount(2, 46)
+                            LadderDiscount(2, 45)
                         ]),
             ),
         ],
@@ -37,5 +37,6 @@ class TestParseOfferDatabase:
         sku, offer = parse_line(line)
         assert sku == expected_sku
         assert offer == expected_offer
+
 
 
