@@ -6,6 +6,7 @@ single_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\
 double_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\d+),\s*(\d+)[A-Z]\s+for\s+(\d+)\s*\|"
 cross_product_and_bgf_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+get\s+one\s+([A-Z])\s+free\s*\|"
 
+
 def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
     if re.match(single_ladder_pattern, line):
         sku, single_unit_price, discount_quantity, discount_price = re.findall(single_ladder_pattern, line)[0]
@@ -24,3 +25,4 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
             return subject_sku, BgfOffer(single_unit_price, buy_quantity)
         else:
             return subject_sku, CrossProductOffer(single_unit_price, subject_sku, buy_quantity, target_sku)
+
