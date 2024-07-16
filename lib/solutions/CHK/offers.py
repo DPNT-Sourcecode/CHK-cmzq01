@@ -178,7 +178,19 @@ class CrossProductOffer:
             and isinstance(target_sku, str)
         ):
             raise TypeError
+        self.single_unit_price = single_unit_price
         self.subject_sku = subject_sku
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
+
+    def calculate_price(self, quantity: int) -> int:
+        """Input quantity. Returns price.
+
+        :param quantity: number of items
+        :return: price of items
+        """
+        if not isinstance(quantity, int):
+            raise TypeError
+        return self.single_unit_price * quantity
+
 
