@@ -60,8 +60,11 @@ class Basket:
         # Get counts of SKUs - of the form {"A": count_a, "B": count_b, etc ....}
         sku_counter = Counter(skus)
 
+        # Need list of all SKUs to add zero counts to some of basket_contents
+        all_skus = offer_database.keys()
+
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
-        self.basket_contents = {k: BasketItem(v) for k, v in sku_counter.items()}
+        self.basket_contents = {k: BasketItem(sku_counter[k]) if k in sku_counter else BasketItem(0) for k in all_skus}
 
         self.offer_database = offer_database
 
@@ -109,4 +112,5 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
