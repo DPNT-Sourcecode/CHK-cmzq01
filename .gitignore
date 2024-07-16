@@ -62,12 +62,10 @@ TAG.md
 version.txt
 # Use Pipenv instead
 requirements.txt
-lib/__init__.py
 lib/runner
 lib/solutions/ARRS
 lib/solutions/CHL
 lib/solutions/FIZ
 lib/solutions/IRNG
 lib/solutions/TST
-test/solution_tests/__init__.py
 
