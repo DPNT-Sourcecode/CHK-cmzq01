@@ -4,7 +4,7 @@ from solutions.CHK.basket import *
 
 
 @pytest.fixture
-def price_list():
+def small_price_list():
     return {
         "A": {
             LadderOffer(
@@ -31,3 +31,4 @@ def price_list():
 #     ):
 #         offer = SingleProductOffer(single_unit_price)
 #         assert offer.calculate_price(quantity) == expected_price
+
