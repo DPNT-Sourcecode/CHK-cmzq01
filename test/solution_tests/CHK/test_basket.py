@@ -56,4 +56,3 @@ class TestBasket:
         basket = Basket(skus, small_price_list_1)
         assert basket.basket_contents.items() == expected_basket_contents.items()
         assert basket.final_price == expected_final_price
-
