@@ -141,8 +141,11 @@ class LadderOffer(SingleProductOffer):
         ]
         self.ladder_discounts.sort(reverse=True)
 
-    def __hash__(self):
-        return hash((self.single_unit_price, str(self.ladder_discounts)))
+    def __eq__(self, other):
+        return (
+                self.single_unit_price == other.single_unit_price
+                and self.ladder_discounts == other.ladder_discounts
+        )
 
     def calculate_price(self, quantity: int) -> int:
         """Input quantity. Returns price.
@@ -203,4 +206,5 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
 
