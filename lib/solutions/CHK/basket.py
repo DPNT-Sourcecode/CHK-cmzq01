@@ -30,12 +30,13 @@ OFFER_DATABASE = {
 
 
 class BasketItem:
-    def __init__(self, quantity_raw: int):
+    def __init__(self, quantity_raw: int, quantity_corrected=None):
         if not (isinstance(quantity_raw, int)):
             raise TypeError
 
         self.quantity_raw = quantity_raw
-        self.quantity_corrected = quantity_raw
+        # For unit testing
+        self.quantity_corrected = quantity_raw if quantity_corrected is None else quantity_corrected
         self.price = None
 
 
@@ -56,7 +57,7 @@ class Basket:
         sku_counter = Counter(skus)
 
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
-        self.basket_contents = {k: BasketItem(v) for k, v in sku_counter}
+        self.basket_contents = {k: BasketItem(v) for k, v in sku_counter.items()}
 
         self.offer_database = offer_database
 
@@ -91,3 +92,4 @@ class Basket:
         for sku, basket_item in self.basket_contents:
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+

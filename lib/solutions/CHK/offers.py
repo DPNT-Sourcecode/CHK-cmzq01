@@ -160,7 +160,7 @@ class CrossProductOffer:
 
     def __init__(
         self,
-        single_unit_price: str,
+        single_unit_price: int,
         subject_sku: str,
         subject_quantity_buy: int,
         target_sku: str,
@@ -181,3 +181,4 @@ class CrossProductOffer:
         self.subject_sku = subject_sku
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
+
