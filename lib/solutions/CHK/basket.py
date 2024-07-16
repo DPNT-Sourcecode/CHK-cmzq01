@@ -12,7 +12,7 @@ from CHK.parse_offer_database import parse_offer_database_file
 
 
 # Load the database of offers
-database_filename = f"{os.getcwd()}/offer_database.txt"
+database_filename = f"{os.path.dirname(__file__)}/offer_database.txt"
 OFFER_DATABASE = parse_offer_database_file(database_filename)
 
 
@@ -109,3 +109,4 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
