@@ -37,6 +37,12 @@ class BasketItem:
         self.quantity_corrected = quantity_raw if quantity_corrected is None else quantity_corrected
         self.price = price
 
+    def __hash__(self):
+        """Hash magic method.
+
+        :return: hash of instance
+        """
+        return hash(str(self.quantity_raw) + str(self.quantity_corrected) + str(self.price))
 
 class Basket:
     def __init__(self, skus: str, offer_database: dict):
@@ -90,3 +96,4 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
