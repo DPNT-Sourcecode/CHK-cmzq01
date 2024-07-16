@@ -6,38 +6,26 @@ from solutions.CHK.basket import *
 @pytest.fixture
 def small_price_list_1():
     return {
-        "A": {
+        "A":
             LadderOffer(
                 50,
                 [
                     LadderDiscount(3, 130),
                     LadderDiscount(5, 200),
                 ],
-            )
-        },
-        "B": {
+            ),
+        "B":
             LadderOffer(
                 30,
                 [
                     LadderDiscount(2, 45),
                 ]
-            )
-        },
-        "C": {
-            SingleProductOffer(20)
-        },
-        "D": {
-            SingleProductOffer(15)
-        },
-        "E": {
-            CrossProductOffer(40, "E", 2, "B")
-        },
-        "F": {
-            BgfOffer(10, 2)
-        },
-        "G": {
-            CrossProductOffer(10, "G", 3, "C")
-        },
+            ),
+        "C": SingleProductOffer(20),
+        "D": SingleProductOffer(15),
+        "E": CrossProductOffer(40, "E", 2, "B"),
+        "F": BgfOffer(10, 2),
+        "G": CrossProductOffer(10, "G", 3, "C"),
     }
 
 
@@ -65,4 +53,5 @@ class TestBasket:
     ):
         basket = Basket(skus, small_price_list_1)
         assert basket.basket_contents == expected_basket_contents
+
 

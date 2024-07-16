@@ -28,14 +28,14 @@ OFFER_DATABASE = {
 
 
 class BasketItem:
-    def __init__(self, quantity_raw: int, quantity_corrected=None):
+    def __init__(self, quantity_raw: int, quantity_corrected=None, price=None):
         if not (isinstance(quantity_raw, int)):
             raise TypeError
 
         self.quantity_raw = quantity_raw
         # For unit testing
         self.quantity_corrected = quantity_raw if quantity_corrected is None else quantity_corrected
-        self.price = None
+        self.price = price
 
 
 class Basket:
@@ -67,7 +67,7 @@ class Basket:
 
         # Basket sets the final price
         self.final_price = sum(
-            [basket_item.price for basket_item in self.basket_contents]
+            [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
 
     def apply_all_cross_product_offers(self):
@@ -89,6 +89,8 @@ class Basket:
     def calculate_all_prices(self):
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
-            basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+            if isinstance(offer, SingleProductOffer):
+                basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
 
