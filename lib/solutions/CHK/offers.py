@@ -23,11 +23,8 @@ class SingleProductOffer:
             raise TypeError
         return self.single_unit_price * quantity
 
-    def __hash__(self):
-        return hash(self.single_unit_price)
-
     def __eq__(self, other):
-        return hash(self) == hash(other)
+        return self.single_unit_price == other.single_unit_price
 
 
 class BgfOffer(SingleProductOffer):
@@ -54,8 +51,8 @@ class BgfOffer(SingleProductOffer):
             raise TypeError
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
-    def __hash__(self):
-        return hash((self.single_unit_price, self.buy_quantity))
+    def __eq__(self, other):
+        return self.single_unit_price == other.single_unit_price and self.buy_quantity == other.buy_quantity
 
 
 class DuplicateLadderDiscountException(Exception):
@@ -197,6 +194,14 @@ class CrossProductOffer:
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
 
+    def __eq__(self, other):
+        return (
+            self.single_unit_price == other.single_unit_price and
+            self.subject_sku == other.subject_sku and
+            self.subject_quantity_buy == other.subject_quantity_buy and
+            self.target_sku == other.target_sku
+        )
+
     def calculate_price(self, quantity: int) -> int:
         """Input quantity. Returns price.
 
@@ -206,5 +211,6 @@ class CrossProductOffer:
         if not isinstance(quantity, int):
             raise TypeError
         return self.single_unit_price * quantity
+
 
 
