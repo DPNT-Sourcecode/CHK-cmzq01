@@ -1,5 +1,5 @@
 """Module containing class representing basket of items at checkout."""
-
+import os
 from collections import Counter
 from CHK.offers import (
     SingleProductOffer,
@@ -8,27 +8,12 @@ from CHK.offers import (
     CrossProductOffer,
     LadderDiscount,
 )
+from CHK.parse_offer_database import parse_offer_database_file
 
-# This should be from global config or external database, but for time's sake is kept here for now.
-OFFER_DATABASE = {
-    "A": LadderOffer(
-        50,
-        [
-            LadderDiscount(3, 130),
-            LadderDiscount(5, 200),
-        ],
-    ),
-    "B": LadderOffer(
-        30,
-        [
-            LadderDiscount(2, 45),
-        ],
-    ),
-    "C": SingleProductOffer(20),
-    "D": SingleProductOffer(15),
-    "E": CrossProductOffer(40, "E", 2, "B"),
-    "F": BgfOffer(10, 2),
-}
+
+# Load the database of offers
+database_filename = f"{os.getcwd()}/offer_database.txt"
+OFFER_DATABASE = parse_offer_database_file(database_filename)
 
 
 class BasketItem:
@@ -55,7 +40,7 @@ class BasketItem:
 class Basket:
     """Class representing a basket of items."""
 
-    def __init__(self, skus: str, offer_database: dict):
+    def __init__(self, skus: str, offer_database: dict = OFFER_DATABASE):
         """Initialize self.
 
         :param skus: string of SKUs.
