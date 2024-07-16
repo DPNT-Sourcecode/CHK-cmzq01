@@ -32,7 +32,15 @@ OFFER_DATABASE = {
 
 
 class BasketItem:
+    """Simple class representing one type of item."""
+
     def __init__(self, quantity_raw: int, quantity_corrected=None, price=None):
+        """Initialize self.
+
+        :param quantity_raw: raw quantity of item.
+        :param quantity_corrected: Only use input during testing. If not input, will be set to raw quantity.
+        :param price: Only use input during testing. If not input, will be set to None and calculated later by basket.
+        """
         if not (isinstance(quantity_raw, int)):
             raise TypeError
 
@@ -45,7 +53,14 @@ class BasketItem:
 
 
 class Basket:
+    """Class representing a basket of items."""
+
     def __init__(self, skus: str, offer_database: dict):
+        """Initialize self.
+
+        :param skus: string of SKUs.
+        :param offer_database: dict containing prices/offers on products.
+        """
         # skus must be a string.
         if not isinstance(skus, str):
             raise TypeError("skus must be a string")
@@ -96,5 +111,6 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
 
 
