@@ -100,6 +100,7 @@ class Basket:
             new_sub_contents, group_price = self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
             self.basket_contents["single_items"] = self.basket_contents["single_items"] | new_sub_contents
             try:
+                self.basket_contents["group_prices"][sku_group] = {}
                 self.basket_contents["group_prices"][sku_group]["price"] = group_price
             except Exception as e:
                 pass
@@ -129,9 +130,3 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
-
-
-
-
-
-
