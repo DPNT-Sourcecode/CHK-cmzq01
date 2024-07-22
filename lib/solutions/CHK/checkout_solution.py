@@ -48,6 +48,7 @@ def checkout(skus: str) -> int:
         basket.apply_all_group_offers()
         basket.calculate_all_prices()
         return basket.final_price
-    except:
+    except Exception as e:
         return -1
+
 
