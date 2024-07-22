@@ -59,33 +59,6 @@ class TestBasket:
         "skus, expected_basket_contents",
         [
             (
-                "AAAABBCCCCCCDEEEEE",
-                {
-                    "single_items": {
-                        "A": BasketItem(4, 1, None),
-                        "B": BasketItem(2, 0, None),
-                        "C": BasketItem(6, 0, None),
-                        "D": BasketItem(1, 0, None),
-                        "E": BasketItem(5, 5, None),
-                    },
-                    "group_prices": {
-                        frozenset({"A", "B", "C", "D"}): 180,
-                    }
-                }
-            ),
-        ],
-    )
-    def test_basket_apply_all_cross_product_offers(
-                self, skus, expected_basket_contents, small_offer_database_2
-        ):
-        basket = Basket(skus, small_offer_database_2)
-        basket.apply_all_cross_product_offers()
-        # assert basket.basket_contents == expected_basket_contents
-
-    @pytest.mark.parametrize(
-        "skus, expected_basket_contents",
-        [
-            (
                     "A" * 16
                     + "B" * 1
                     + "C" * 18
@@ -109,7 +82,33 @@ class TestBasket:
         ],
     )
     def test_basket_apply_all_cross_product_offers(self, skus, expected_basket_contents, small_offer_database_1):
-        s = ""
         basket = Basket(skus, small_offer_database_1)
         basket.apply_all_cross_product_offers()
         assert DeepDiff(basket.basket_contents, expected_basket_contents) == {}
+
+    @pytest.mark.parametrize(
+        "skus, expected_basket_contents",
+        [
+            (
+                    "AAAABBCCCCCCDEEEEE",
+                    {
+                        "single_items": {
+                            "A": BasketItem(4, 1, None),
+                            "B": BasketItem(2, 0, None),
+                            "C": BasketItem(6, 0, None),
+                            "D": BasketItem(1, 0, None),
+                            "E": BasketItem(5, 5, None),
+                        },
+                        "group_prices": {
+                            frozenset({"A", "B", "C", "D"}): 180,
+                        }
+                    }
+            ),
+        ],
+    )
+    def test_basket_apply_all_group_offers(
+            self, skus, expected_basket_contents, small_offer_database_2
+    ):
+        basket = Basket(skus, small_offer_database_2)
+        basket.apply_all_cross_product_offers()
+        # assert basket.basket_contents == expected_basket_contents

@@ -94,6 +94,11 @@ class Basket:
             0, target_quantity - (subject_quantity // subject_quantity_buy)
         )
 
+    def apply_all_group_offers(self):
+        for sku_group in self.offer_database["group_offers"]:
+            pass
+
+
     def calculate_all_prices(self):
         """Calculate all prices for the individual items in the basket contents.
 
@@ -106,3 +111,4 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
