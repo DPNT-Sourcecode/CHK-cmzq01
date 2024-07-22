@@ -128,5 +128,7 @@ class Basket:
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents["single_items"].items()]
-        )
+        ) + sum([price for _, price in self.basket_contents["group_prices"].items()])
+
+
 
