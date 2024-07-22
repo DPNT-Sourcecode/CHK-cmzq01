@@ -48,11 +48,11 @@ class Basket:
         sku_counter = Counter(skus)
 
         # Need list of all SKUs to add zero counts to some of basket_contents
-        all_skus = offer_database.keys()
+        all_skus = offer_database["single_sku_offers"].keys()
 
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
         self.basket_contents = {
-            k: BasketItem(sku_counter[k]) if k in sku_counter else BasketItem(0)
+            k: BasketItem(sku_counter[k])
             for k in all_skus
         }
 
@@ -96,4 +96,5 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
 
