@@ -100,7 +100,7 @@ class TestBasket:
                             "D": BasketItem(12, 12, 180),
                             "E": BasketItem(20, 20, 800),
                             "F": BasketItem(14, 14, 100),
-                            "G": BasketItem(7, 7, 60),
+                            "G": BasketItem(7, 7, 70),
                         },
                         "group_prices": {}
                     },
@@ -112,6 +112,7 @@ class TestBasket:
         basket = Basket(skus, small_offer_database_1)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
+
 
 
 
