@@ -236,4 +236,3 @@ class MultiSubjectSkuOffer(BasicOffer):
         self.subject_sku_set = subject_sku_set
         self.quantity = quantity
         self.price = price
-
