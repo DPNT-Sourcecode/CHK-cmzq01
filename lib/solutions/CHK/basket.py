@@ -99,7 +99,10 @@ class Basket:
             sub_contents = dict(filter(lambda i: i[0] in sku_group, self.basket_contents["single_items"].items()))
             new_sub_contents, group_price = self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
             self.basket_contents["single_items"] = self.basket_contents["single_items"] | new_sub_contents
-            self.basket_contents["group_prices"][sku_group]["price"] = group_price
+            try:
+                self.basket_contents["group_prices"][sku_group]["price"] = group_price
+            except Exception as e:
+                pass
 
     def apply_group_offer(self, input_dict, quan, price):
         input_dict_sorted = sorted(input_dict.items(), key=lambda item: self.offer_database["single_sku_offers"][item[0]].single_unit_price, reverse=True)
@@ -126,6 +129,7 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
 
 
 
