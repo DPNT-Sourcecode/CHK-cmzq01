@@ -12,8 +12,6 @@ class SingleSubjectSkuOffer:
 
         :param single_unit_price: price for a single item
         """
-        if not isinstance(single_unit_price, int):
-            raise TypeError
         self.single_unit_price = single_unit_price
 
     @typechecked
@@ -34,6 +32,7 @@ class SingleSubjectSkuOffer:
         return self.single_unit_price == other.single_unit_price
 
 
+@typechecked
 class BgfOffer(SingleSubjectSkuOffer):
     """Buy X get 1 free offer class."""
 
@@ -44,18 +43,15 @@ class BgfOffer(SingleSubjectSkuOffer):
         :param buy_quantity: number required to get 1 free
         """
         super().__init__(single_unit_price)
-        if not isinstance(buy_quantity, int):
-            raise TypeError
         self.buy_quantity = buy_quantity
 
+    @typechecked
     def calculate_price(self, quantity: int) -> int:
         """Input quantity. Returns price.
 
         :param quantity: number of items
         :return: price of items
         """
-        if not isinstance(quantity, int):
-            raise TypeError
         return (quantity - quantity // (self.buy_quantity + 1)) * self.single_unit_price
 
     def __eq__(self, other):
@@ -82,6 +78,7 @@ class InvalidLadderDiscountQuantityException(Exception):
     pass
 
 
+@typechecked
 class LadderDiscount:
     """Class representing a "Ladder Discount". For example "buy 3 for 80"."""
 
@@ -91,9 +88,6 @@ class LadderDiscount:
         :param quantity: number of items to qualify for discount
         :param total_price: total price of the items
         """
-        if not (isinstance(quantity, int) and isinstance(total_price, int)):
-            raise TypeError
-
         self.quantity = quantity
         self.total_price = total_price
 
@@ -129,6 +123,7 @@ class LadderDiscount:
         return hash(self.quantity)
 
 
+@typechecked
 class LadderOffer(SingleSubjectSkuOffer):
     """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts"."""
 
@@ -173,9 +168,6 @@ class LadderOffer(SingleSubjectSkuOffer):
         :param quantity: number of items
         :return: price of items
         """
-        if not isinstance(quantity, int):
-            raise TypeError
-
         # variables to keep track of, going down the ladders.
         y = quantity
         price = 0
@@ -205,12 +197,6 @@ class CrossProductOffer(SingleSubjectSkuOffer):
         :param target_sku: type of SKU given one free as part of this offer
         """
         super().__init__(single_unit_price)
-        if not (
-            isinstance(single_unit_price, int)
-            and isinstance(subject_quantity_buy, int)
-            and isinstance(target_sku, str)
-        ):
-            raise TypeError
         self.single_unit_price = single_unit_price
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
@@ -226,6 +212,7 @@ class CrossProductOffer(SingleSubjectSkuOffer):
             and self.subject_quantity_buy == other.subject_quantity_buy
             and self.target_sku == other.target_sku
         )
+
 
 
 

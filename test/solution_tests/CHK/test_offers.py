@@ -53,9 +53,9 @@ class TestOffers:
     @pytest.mark.parametrize(
         "quantity, single_unit_price, buy_quantity, expected_exception_class",
         [
-            (10.5, 5, 3, TypeError),
-            (10, 5.5, 3, TypeError),
-            (10, 5, 3.5, TypeError),
+            (10.5, 5, 3, TypeCheckError),
+            (10, 5.5, 3, TypeCheckError),
+            (10, 5, 3.5, TypeCheckError),
         ],
     )
     def test_calculate_price_bgf_offer_exceptions(
@@ -150,4 +150,5 @@ class TestOffers:
         with pytest.raises(expected_exception_class):
             offer = LadderOffer(single_unit_price, ladder_discounts)
             offer.calculate_price(quantity)
+
 
