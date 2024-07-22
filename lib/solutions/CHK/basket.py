@@ -86,11 +86,11 @@ class Basket:
         :return: void
         """
         target_sku = offer.target_sku
-        target_quantity = self.basket_contents[target_sku].quantity_corrected
+        target_quantity = self.basket_contents["single_items"][target_sku].quantity_corrected
         subject_sku = sku
-        subject_quantity = self.basket_contents[subject_sku].quantity_raw
+        subject_quantity = self.basket_contents["single_items"][subject_sku].quantity_raw
         subject_quantity_buy = offer.subject_quantity_buy
-        self.basket_contents[target_sku].quantity_corrected = max(
+        self.basket_contents["single_items"][target_sku].quantity_corrected = max(
             0, target_quantity - (subject_quantity // subject_quantity_buy)
         )
 

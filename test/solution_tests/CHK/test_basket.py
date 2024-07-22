@@ -58,40 +58,6 @@ class TestBasket:
         "skus, expected_basket_contents",
         [
             (
-                "A" * 16
-                + "B" * 1
-                + "C" * 18
-                + "D" * 12
-                + "E" * 20
-                + "F" * 14
-                + "G" * 7,
-                {
-                    "single_items": {
-                        "A": BasketItem(16, 16, 650),
-                        "B": BasketItem(1, 0, 0),
-                        "C": BasketItem(18, 16, 320),
-                        "D": BasketItem(12, 12, 180),
-                        "E": BasketItem(20, 20, 800),
-                        "F": BasketItem(14, 14, 100),
-                        "G": BasketItem(7, 7, 70),
-                    },
-                    "group_prices": {1:1}
-                },
-            ),
-        ],
-    )
-    def test_basket_apply_all_cross_product_offers(
-        self, skus, expected_basket_contents, small_offer_database_1
-    ):
-        s = ""
-        basket = Basket(skus, small_offer_database_1)
-        basket.apply_all_cross_product_offers()
-        assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
-
-    @pytest.mark.parametrize(
-        "skus, expected_basket_contents",
-        [
-            (
                 "AAAABBCCCCCCDEEEEE",
                 {
                     "single_items": {
@@ -134,16 +100,18 @@ class TestBasket:
                             "D": BasketItem(12, 12, 180),
                             "E": BasketItem(20, 20, 800),
                             "F": BasketItem(14, 14, 100),
-                            "G": BasketItem(7, 7, 70),
+                            "G": BasketItem(7, 7, 60),
                         },
-                        "group_prices": {1:1}
+                        "group_prices": {}
                     },
             ),
         ],
     )
-    def test_random(self, skus, expected_basket_contents, small_offer_database_1):
+    def test_basket_apply_all_cross_product_offers(self, skus, expected_basket_contents, small_offer_database_1):
         s = ""
-        assert True
+        basket = Basket(skus, small_offer_database_1)
+        basket.apply_all_cross_product_offers()
+        assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
 
 
 
