@@ -29,6 +29,12 @@ class BasketItem:
         )
         self.price = price
 
+    def __eq__(self, other):
+        return (self.quantity_raw == other.quantity_raw
+                and self.quantity_corrected == other.quantity_corrected
+                and self.price == other.price
+                )
+
 
 @typechecked
 class Basket:
@@ -96,5 +102,6 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
 
 
