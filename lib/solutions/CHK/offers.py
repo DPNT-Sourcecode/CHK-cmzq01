@@ -1,7 +1,7 @@
 """Module containing classes representing single/cross product offers."""
 
 
-class SingleProductOffer:
+class SingleSubjectSkuOffer:
     """Base class for a single product offer."""
 
     def __init__(self, single_unit_price: int):
@@ -32,7 +32,7 @@ class SingleProductOffer:
         return self.single_unit_price == other.single_unit_price
 
 
-class BgfOffer(SingleProductOffer):
+class BgfOffer(SingleSubjectSkuOffer):
     """Buy X get 1 free offer class."""
 
     def __init__(self, single_unit_price: int, buy_quantity: int):
@@ -127,7 +127,7 @@ class LadderDiscount:
         return hash(self.quantity)
 
 
-class LadderOffer(SingleProductOffer):
+class LadderOffer(SingleSubjectSkuOffer):
     """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts"."""
 
     def __init__(self, single_unit_price: int, ladder_discounts: list[LadderDiscount]):
@@ -137,7 +137,6 @@ class LadderOffer(SingleProductOffer):
         :param ladder_discounts: list of LadderDiscounts (no ladder may contain 0 or 1 as quantity)
         """
         super().__init__(single_unit_price)
-        self.single_unit_price = single_unit_price
 
         # Check for duplicate discounts in the ladder, which don't make sense.
         ladder_discount_quantities = [
@@ -188,7 +187,7 @@ class LadderOffer(SingleProductOffer):
         return price
 
 
-class CrossProductOffer:
+class CrossProductOffer(SingleSubjectSkuOffer):
     """Class representing a cross-product offer that is SKU-aware."""
 
     def __init__(
@@ -204,6 +203,7 @@ class CrossProductOffer:
         :param subject_quantity_buy: quantity of items to buy to get this offer
         :param target_sku: type of SKU given one free as part of this offer
         """
+        super().__init__(single_unit_price)
         if not (
             isinstance(single_unit_price, int)
             and isinstance(subject_sku, str)
@@ -229,12 +229,4 @@ class CrossProductOffer:
             and self.target_sku == other.target_sku
         )
 
-    def calculate_price(self, quantity: int) -> int:
-        """Input quantity. Returns price.
 
-        :param quantity: number of items
-        :return: price of items
-        """
-        if not isinstance(quantity, int):
-            raise TypeError
-        return self.single_unit_price * quantity

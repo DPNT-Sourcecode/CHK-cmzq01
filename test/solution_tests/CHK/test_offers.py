@@ -17,7 +17,7 @@ class TestOffers:
     def test_calculate_price_single_product_offer(
         self, quantity, single_unit_price, expected_price
     ):
-        offer = SingleProductOffer(single_unit_price)
+        offer = SingleSubjectSkuOffer(single_unit_price)
         assert offer.calculate_price(quantity) == expected_price
 
     @pytest.mark.parametrize(
@@ -31,7 +31,7 @@ class TestOffers:
         self, quantity, single_unit_price, expected_exception_class
     ):
         with pytest.raises(expected_exception_class):
-            offer = SingleProductOffer(single_unit_price)
+            offer = SingleSubjectSkuOffer(single_unit_price)
             offer.calculate_price(quantity)
 
     @pytest.mark.parametrize(
@@ -149,3 +149,4 @@ class TestOffers:
         with pytest.raises(expected_exception_class):
             offer = LadderOffer(single_unit_price, ladder_discounts)
             offer.calculate_price(quantity)
+

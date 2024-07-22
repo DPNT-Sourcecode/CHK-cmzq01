@@ -3,7 +3,7 @@
 import re
 
 from CHK.offers import (
-    SingleProductOffer,
+    SingleSubjectSkuOffer,
     CrossProductOffer,
     LadderOffer,
     LadderDiscount,
@@ -24,7 +24,7 @@ offer_database_second_line_patter = (
 )
 
 
-def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
+def parse_line(line) -> tuple[str, [SingleSubjectSkuOffer, CrossProductOffer]]:
     """Input offer database line. Return tuple of the form <sku>, <offer>.
 
     :param line: line to parse
@@ -37,7 +37,7 @@ def parse_line(line) -> tuple[str, [SingleProductOffer, CrossProductOffer]]:
     if re.match(single_price_pattern, line):
         sku, single_unit_price = re.findall(single_price_pattern, line)[0]
         return_sku = sku
-        return_offer = SingleProductOffer(int(single_unit_price))
+        return_offer = SingleSubjectSkuOffer(int(single_unit_price))
     elif re.match(single_ladder_pattern, line):
         sku, single_unit_price, discount_quantity, discount_price = re.findall(
             single_ladder_pattern, line
@@ -107,3 +107,4 @@ def parse_offer_database_file(filename):
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
+
