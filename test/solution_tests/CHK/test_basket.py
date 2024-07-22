@@ -1,7 +1,7 @@
 import pytest
 
 from solutions.CHK.basket import *
-
+from solutions.CHK.offers import *
 # useful: python commands to generate random SKUs
 # from string import ascii_uppercase
 # "".join([f"\"{char}\" * {randint(0,20)}{' + ' if i != len(ascii_uppercase) - 1 else ''}" \
@@ -67,3 +67,4 @@ class TestBasket:
         basket = Basket(skus, small_offer_database)
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
+
