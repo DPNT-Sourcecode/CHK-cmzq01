@@ -120,8 +120,9 @@ def parse_offer_database_file(filename):
                     if isinstance(offer, MultiSubjectSkuOffer):
                         offer_database["group_offers"][offer.subject_sku_set] = offer
             return offer_database
-        except Exception as e:
+        except:
             raise InvalidOfferDatabaseFile
+
 
 
 

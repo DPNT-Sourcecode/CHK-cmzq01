@@ -41,7 +41,7 @@ class Basket:
         :param offer_database: dict containing prices/offers on products.
         """
         # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
-        if not set(skus) <= offer_database.keys():
+        if not set(skus) <= offer_database["single_sku_offers"].keys():
             raise IndexError
 
         # Get counts of SKUs - of the form {"A": count_a, "B": count_b, etc ....}
@@ -64,7 +64,7 @@ class Basket:
         :return: void
         """
         for sku, basket_item in self.basket_contents.items():
-            offer = self.offer_database[sku]
+            offer = self.offer_database["single_sku_offers"][sku]
             if isinstance(offer, CrossProductOffer):
                 self.apply_cross_product_offer(sku, offer)
 
@@ -91,8 +91,9 @@ class Basket:
         :return: void
         """
         for sku, basket_item in self.basket_contents.items():
-            offer = self.offer_database[sku]
+            offer = self.offer_database["single_sku_offers"][sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
