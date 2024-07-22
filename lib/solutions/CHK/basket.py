@@ -123,10 +123,10 @@ class Basket:
         Also computes final price and sets final_price on Basket.
         :return: void
         """
-        for sku, basket_item in self.basket_contents.items():
+        for sku, basket_item in self.basket_contents["single_items"].items():
             offer = self.offer_database["single_sku_offers"][sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
         self.final_price = sum(
-            [basket_item.price for _, basket_item in self.basket_contents.items()]
+            [basket_item.price for _, basket_item in self.basket_contents["single_items"].items()]
         )
 
