@@ -1,5 +1,4 @@
 """Module containing classes representing single/cross product offers."""
-import
 
 class SingleSubjectSkuOffer:
     """Base class for a single product offer."""
@@ -224,5 +223,6 @@ class CrossProductOffer(SingleSubjectSkuOffer):
             and self.subject_quantity_buy == other.subject_quantity_buy
             and self.target_sku == other.target_sku
         )
+
 
 
