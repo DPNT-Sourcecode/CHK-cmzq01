@@ -95,9 +95,12 @@ class Basket:
         )
 
     def apply_all_group_offers(self):
-        for sku_group in self.offer_database["group_offers"]:
-            pass
+        for sku_group, offer_details in self.offer_database["group_offers"].items():
+            sub_contents = dict(filter(lambda i: i[0] in sku_group, self.basket_contents["single_items"].items()))
+            self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
 
+    def apply_group_offer(self, input_dict, quan, price):
+        pass
 
     def calculate_all_prices(self):
         """Calculate all prices for the individual items in the basket contents.
@@ -111,3 +114,4 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+

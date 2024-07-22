@@ -110,5 +110,6 @@ class TestBasket:
             self, skus, expected_basket_contents, small_offer_database_2
     ):
         basket = Basket(skus, small_offer_database_2)
-        basket.apply_all_cross_product_offers()
+        basket.apply_all_group_offers()
         # assert basket.basket_contents == expected_basket_contents
+
