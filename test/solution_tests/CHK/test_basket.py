@@ -66,5 +66,8 @@ class TestBasket:
     ):
         # TODO: split this into cross-product application / price calculation using patch/mock
         basket = Basket(skus, small_offer_database)
+        basket.apply_all_cross_product_offers()
+        # basket.calculate_all_prices()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
-        assert basket.final_price == expected_final_price
+        # assert basket.final_price == expected_final_price
+

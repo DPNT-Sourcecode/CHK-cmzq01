@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.CHK.checkout_solution import compute_price_of_single_item_type, checkout
+from solutions.CHK.checkout_solution import checkout
 
 
 class TestCheckout:
@@ -42,3 +42,4 @@ class TestCheckout:
     )
     def test_checkout(self, skus, expected_price):
         assert checkout(skus) == expected_price
+

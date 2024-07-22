@@ -44,6 +44,9 @@ def checkout(skus: str) -> int:
     """
     try:
         basket = Basket(skus)
+        basket.apply_all_cross_product_offers()
+        basket.calculate_all_prices()
         return basket.final_price
     except:
         return -1
+

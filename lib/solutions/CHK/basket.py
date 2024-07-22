@@ -66,17 +66,6 @@ class Basket:
 
         self.offer_database = offer_database
 
-        # Basket uses cross-product offers associated to certain SKUs to correct the basket item counts
-        self.apply_all_cross_product_offers()
-
-        # Basket updates the price of each basket item
-        (self.calculate_all_prices())
-
-        # Basket sets the final price
-        self.final_price = sum(
-            [basket_item.price for _, basket_item in self.basket_contents.items()]
-        )
-
     def apply_all_cross_product_offers(self):
         """Apply all cross-product offers on the basket.
 
@@ -106,8 +95,13 @@ class Basket:
     def calculate_all_prices(self):
         """Calculate all prices for the individual items in the basket contents.
 
+        Also computes final price and sets final_price on Basket.
         :return: void
         """
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+        self.final_price = sum(
+            [basket_item.price for _, basket_item in self.basket_contents.items()]
+        )
+
