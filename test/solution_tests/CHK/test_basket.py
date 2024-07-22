@@ -27,8 +27,8 @@ def small_offer_database():
                 LadderDiscount(2, 45),
             ],
         ),
-        "C": SingleSubjectSkuOffer(20),
-        "D": SingleSubjectSkuOffer(15),
+        "C": BasicOffer(20),
+        "D": BasicOffer(15),
         "E": CrossProductOffer(40, 2, "B"),
         "F": BgfOffer(10, 2),
         "G": CrossProductOffer(10, 3, "C"),
@@ -70,5 +70,3 @@ class TestBasket:
         basket.calculate_all_prices()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
-
-

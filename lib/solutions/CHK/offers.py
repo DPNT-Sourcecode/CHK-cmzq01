@@ -4,7 +4,7 @@ from typeguard import typechecked
 
 
 @typechecked
-class SingleSubjectSkuOffer:
+class BasicOffer:
     """Base class for a single product offer."""
 
     def __init__(self, single_unit_price: int):
@@ -33,7 +33,7 @@ class SingleSubjectSkuOffer:
 
 
 @typechecked
-class BgfOffer(SingleSubjectSkuOffer):
+class BgfOffer(BasicOffer):
     """Buy X get 1 free offer class."""
 
     def __init__(self, single_unit_price: int, buy_quantity: int):
@@ -124,7 +124,7 @@ class LadderDiscount:
 
 
 @typechecked
-class LadderOffer(SingleSubjectSkuOffer):
+class LadderOffer(BasicOffer):
     """Class representing a "Ladder Offer", composed of multiple "Ladder Discounts"."""
 
     def __init__(self, single_unit_price: int, ladder_discounts: list[LadderDiscount]):
@@ -181,7 +181,7 @@ class LadderOffer(SingleSubjectSkuOffer):
         return price
 
 
-class CrossProductOffer(SingleSubjectSkuOffer):
+class CrossProductOffer(BasicOffer):
     """Class representing a cross-product offer that is SKU-aware."""
 
     def __init__(
@@ -214,6 +214,23 @@ class CrossProductOffer(SingleSubjectSkuOffer):
         )
 
 
+@typechecked
+class MultiSubjectSkuOffer:
+    """Class representing a group discount."""
+    def __init__(
+            self,
+            single_unit_price: int,
+            subject_sku_set: set[str],
+            quantity: int,
+            price: int,
+    ):
+        """Initialize self.
 
-
-
+        :param subject_sku_set: group of profucts in offer
+        :param quantity: Buy this many of any in the group to get offer.
+        :param price: Price per quantity of group.
+        """
+        self.single_unit_price = single_unit_price
+        self.subject_sku_set = subject_sku_set
+        self.quantity = quantity
+        self.price = price

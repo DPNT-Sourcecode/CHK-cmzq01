@@ -22,8 +22,8 @@ def expected_offer_database_dict():
                 LadderDiscount(2, 45),
             ],
         ),
-        "C": SingleSubjectSkuOffer(20),
-        "D": SingleSubjectSkuOffer(15),
+        "C": BasicOffer(20),
+        "D": BasicOffer(15),
         "E": CrossProductOffer(40, 2, "B"),
         "F": BgfOffer(10, 2),
     }
@@ -37,7 +37,7 @@ class TestParseOfferDatabase:
             (
                 "| C    | 20    |                        |",
                 "C",
-                SingleSubjectSkuOffer(20),
+                BasicOffer(20),
             ),
             (
                 "| U    | 40    | 3U get one U free      |",

@@ -49,4 +49,3 @@ def checkout(skus: str) -> int:
         return basket.final_price
     except:
         return -1
-
