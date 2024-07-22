@@ -68,5 +68,3 @@ class TestBasket:
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
 
-
-
