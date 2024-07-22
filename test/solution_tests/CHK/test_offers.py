@@ -1,6 +1,7 @@
 import pytest
 
 from solutions.CHK.offers import *
+from typeguard import TypeCheckError
 
 
 class TestOffers:
@@ -23,8 +24,8 @@ class TestOffers:
     @pytest.mark.parametrize(
         "quantity, single_unit_price, expected_exception_class",
         [
-            (10.5, 5, TypeError),
-            (10, 5.5, TypeError),
+            (10.5, 5, TypeCheckError),
+            (10, 5.5, TypeCheckError),
         ],
     )
     def test_calculate_price_single_product_offer_exceptions(
@@ -149,3 +150,4 @@ class TestOffers:
         with pytest.raises(expected_exception_class):
             offer = LadderOffer(single_unit_price, ladder_discounts)
             offer.calculate_price(quantity)
+

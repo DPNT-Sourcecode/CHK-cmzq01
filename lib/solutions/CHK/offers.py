@@ -1,5 +1,9 @@
 """Module containing classes representing single/cross product offers."""
 
+from typeguard import typechecked
+
+
+@typechecked
 class SingleSubjectSkuOffer:
     """Base class for a single product offer."""
 
@@ -12,14 +16,13 @@ class SingleSubjectSkuOffer:
             raise TypeError
         self.single_unit_price = single_unit_price
 
+    @typechecked
     def calculate_price(self, quantity: int) -> int:
         """Input quantity. Returns price.
 
         :param quantity: number of items
         :return: price of items
         """
-        if not isinstance(quantity, int):
-            raise TypeError
         return self.single_unit_price * quantity
 
     def __eq__(self, other):
@@ -223,6 +226,7 @@ class CrossProductOffer(SingleSubjectSkuOffer):
             and self.subject_quantity_buy == other.subject_quantity_buy
             and self.target_sku == other.target_sku
         )
+
 
 
 
