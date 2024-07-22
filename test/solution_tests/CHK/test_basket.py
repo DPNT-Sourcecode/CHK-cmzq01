@@ -12,7 +12,7 @@ from CHK.basket import *
 
 
 @pytest.fixture
-def small_offer_database():
+def small_offer_database_1():
     return {
         "A": LadderOffer(
             50,
@@ -62,10 +62,11 @@ class TestBasket:
         ],
     )
     def test_basket_apply_all_cross_product_offers(
-        self, skus, expected_basket_contents, expected_final_price, small_offer_database
+        self, skus, expected_basket_contents, expected_final_price, small_offer_database_1
     ):
-        # TODO: could split these 3 tests
-        basket = Basket(skus, small_offer_database)
+        basket = Basket(skus, small_offer_database_1)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
+
+
 
