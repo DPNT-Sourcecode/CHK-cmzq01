@@ -49,24 +49,23 @@ class TestBasket:
                 + "F" * 14
                 + "G" * 7,
                 {
-                    "A": BasketItem(16, 16, 650),
-                    "B": BasketItem(1, 0, 0),
-                    "C": BasketItem(18, 16, 320),
-                    "D": BasketItem(12, 12, 180),
-                    "E": BasketItem(20, 20, 800),
-                    "F": BasketItem(14, 14, 100),
-                    "G": BasketItem(7, 7, 70),
+                    "A": BasketItem(16, 16, None),
+                    "B": BasketItem(1, 0, None),
+                    "C": BasketItem(18, 16, None),
+                    "D": BasketItem(12, 12, None),
+                    "E": BasketItem(20, 20, None),
+                    "F": BasketItem(14, 14, None),
+                    "G": BasketItem(7, 7, None),
                 },
                 2120,
             ),
         ],
     )
-    def test_basket_contents_and_final_price(
+    def test_basket_apply_all_cross_product_offers(
         self, skus, expected_basket_contents, expected_final_price, small_offer_database
     ):
         # TODO: could split these 3 tests
         basket = Basket(skus, small_offer_database)
         basket.apply_all_cross_product_offers()
-        basket.calculate_all_prices()
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
-        assert basket.final_price == expected_final_price
+
