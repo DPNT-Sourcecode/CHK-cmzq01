@@ -19,7 +19,9 @@ double_ladder_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+for\s+(\
 cross_product_and_bgf_pattern = (
     r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*(\d+)[A-Z]\s+get\s+one\s+([A-Z])\s+free\s*\|"
 )
-group_offer_pattern = r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*buy any (\d+) of \((.*?)\) for (\d+)\s*\|"
+group_offer_pattern = (
+    r"\|\s*([A-Z])\s*\|\s*(\d+)\s*\|\s*buy any (\d+) of \((.*?)\) for (\d+)\s*\|"
+)
 
 offer_database_second_line_patter = (
     r"\|\s.*Item\s.*\|\s.*Price\s.*\|\s.*Special offers\s.*\|"
@@ -79,10 +81,14 @@ def parse_line(line) -> tuple[str, [BasicOffer, CrossProductOffer]]:
                 int(single_unit_price), int(buy_quantity), target_sku
             )
     elif re.match(group_offer_pattern, line):
-        subject_sku, single_unit_price, group_quantity, group_string, group_price = re.findall(group_offer_pattern, line)[0]
+        subject_sku, single_unit_price, group_quantity, group_string, group_price = (
+            re.findall(group_offer_pattern, line)[0]
+        )
         group_set = set(group_string.split(","))
         return_sku = subject_sku
-        return_offer = MultiSubjectSkuOffer(int(single_unit_price), group_set, int(group_quantity), int(group_price))
+        return_offer = MultiSubjectSkuOffer(
+            int(single_unit_price), group_set, int(group_quantity), int(group_price)
+        )
     return return_sku, return_offer
 
 
@@ -113,4 +119,5 @@ def parse_offer_database_file(filename):
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
+
 

@@ -60,7 +60,6 @@ class TestParseOfferDatabase:
                 "G",
                 MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
             ),
-
         ],
     )
     def test_parse_line(self, line, expected_sku, expected_offer):
@@ -72,4 +71,5 @@ class TestParseOfferDatabase:
         test_database_filename = f"{os.getcwd()}/test_offer_database.txt"
         actual_offer_database_dict = parse_offer_database_file(test_database_filename)
         assert actual_offer_database_dict == expected_offer_database_dict
+
 

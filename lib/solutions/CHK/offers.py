@@ -217,12 +217,13 @@ class CrossProductOffer(BasicOffer):
 @typechecked
 class MultiSubjectSkuOffer(BasicOffer):
     """Class representing a group discount."""
+
     def __init__(
-            self,
-            single_unit_price: int,
-            subject_sku_set: set[str],
-            quantity: int,
-            price: int,
+        self,
+        single_unit_price: int,
+        subject_sku_set: set[str],
+        quantity: int,
+        price: int,
     ):
         """Initialize self.
 
@@ -230,7 +231,9 @@ class MultiSubjectSkuOffer(BasicOffer):
         :param quantity: Buy this many of any in the group to get offer.
         :param price: Price per quantity of group.
         """
+        super().__init__(single_unit_price)
         self.single_unit_price = single_unit_price
         self.subject_sku_set = subject_sku_set
         self.quantity = quantity
         self.price = price
+
