@@ -4,13 +4,14 @@ import os
 from collections import Counter
 from CHK.offers import CrossProductOffer
 from CHK.parse_offer_database import parse_offer_database_file
-
+from typeguard import typechecked
 
 # Load the database of offers
 database_filename = f"{os.path.dirname(__file__)}/offer_database.txt"
 OFFER_DATABASE = parse_offer_database_file(database_filename)
 
 
+@typechecked
 class BasketItem:
     """Simple class representing one type of item."""
 
@@ -21,9 +22,6 @@ class BasketItem:
         :param quantity_corrected: Only use input during testing. If not input, will be set to raw quantity.
         :param price: Only use input during testing. If not input, will be set to None and calculated later by basket.
         """
-        if not (isinstance(quantity_raw, int)):
-            raise TypeError
-
         self.quantity_raw = quantity_raw
         # For unit testing
         self.quantity_corrected = (
@@ -32,6 +30,7 @@ class BasketItem:
         self.price = price
 
 
+@typechecked
 class Basket:
     """Class representing a basket of items."""
 
@@ -41,13 +40,6 @@ class Basket:
         :param skus: string of SKUs.
         :param offer_database: dict containing prices/offers on products.
         """
-        # skus must be a string.
-        if not isinstance(skus, str):
-            raise TypeError("skus must be a string")
-
-        if not isinstance(offer_database, dict):
-            raise TypeError("offer_database must be a dict")
-
         # If the set of characters in the skus string is not a subset of the item_prices keys, return -1
         if not set(skus) <= offer_database.keys():
             raise IndexError
@@ -104,4 +96,5 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
 
