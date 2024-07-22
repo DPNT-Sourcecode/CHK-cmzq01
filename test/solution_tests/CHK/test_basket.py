@@ -47,16 +47,14 @@ def small_offer_database_2():
             "C": MultiSubjectSkuOffer(20, {"A", "B", "C", "D"}, 3, 45),
             "D": MultiSubjectSkuOffer(25, {"A", "B", "C", "D"}, 3, 45),
         },
-        "group_offers": {frozenset({"A", "B", "C", "D"}): MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27)}
+        "group_offers": {frozenset({"A", "B", "C", "D"}): {"quantity": 3, "price": 45}}
     }
-
-
 
 
 class TestBasket:
 
     @pytest.mark.parametrize(
-        "skus, expected_basket_contents, expected_final_price",
+        "skus, expected_basket_contents",
         [
             (
                 "A" * 16
@@ -67,54 +65,53 @@ class TestBasket:
                 + "F" * 14
                 + "G" * 7,
                 {
-                    "A": BasketItem(16, 16, None),
-                    "B": BasketItem(1, 0, None),
-                    "C": BasketItem(18, 16, None),
-                    "D": BasketItem(12, 12, None),
-                    "E": BasketItem(20, 20, None),
-                    "F": BasketItem(14, 14, None),
-                    "G": BasketItem(7, 7, None),
+                    "single_items": {
+                        "A": BasketItem(16, 16, 650),
+                        "B": BasketItem(1, 0, 0),
+                        "C": BasketItem(18, 16, 320),
+                        "D": BasketItem(12, 12, 180),
+                        "E": BasketItem(20, 20, 800),
+                        "F": BasketItem(14, 14, 100),
+                        "G": BasketItem(7, 7, 70),
+                    },
+                    "group_prices": {}
                 },
-                2120,
             ),
         ],
     )
     def test_basket_apply_all_cross_product_offers(
-        self, skus, expected_basket_contents, expected_final_price, small_offer_database_1
+        self, skus, expected_basket_contents, small_offer_database_1
     ):
         basket = Basket(skus, small_offer_database_1)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents == expected_basket_contents
 
     @pytest.mark.parametrize(
-        "skus, expected_basket_contents, expected_final_price",
+        "skus, expected_basket_contents",
         [
             (
-                    "A" * 16
-                    + "B" * 1
-                    + "C" * 18
-                    + "D" * 12
-                    + "E" * 20
-                    + "F" * 14
-                    + "G" * 7,
-                    {
-                        "A": BasketItem(16, 16, None),
-                        "B": BasketItem(1, 0, None),
-                        "C": BasketItem(18, 16, None),
-                        "D": BasketItem(12, 12, None),
-                        "E": BasketItem(20, 20, None),
-                        "F": BasketItem(14, 14, None),
-                        "G": BasketItem(7, 7, None),
+                "AAAABBCCCCCCDEEEEE",
+                {
+                    "single_items": {
+                        "A": BasketItem(4, 1, None),
+                        "B": BasketItem(2, 0, None),
+                        "C": BasketItem(6, 0, None),
+                        "D": BasketItem(1, 0, None),
+                        "E": BasketItem(5, 5, None),
                     },
-                    2120,
+                    "group_prices": {
+                        frozenset({"A", "B", "C", "D"}): 180,
+                    }
+                }
             ),
         ],
     )
     def test_basket_apply_all_cross_product_offers(
-                self, skus, expected_basket_contents, expected_final_price, small_offer_database_1
+                self, skus, expected_basket_contents, small_offer_database_2
         ):
         basket = Basket(skus, small_offer_database_2)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents == expected_basket_contents
+
 
 
