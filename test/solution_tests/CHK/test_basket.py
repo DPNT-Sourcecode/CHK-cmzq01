@@ -1,4 +1,5 @@
 import pytest
+from deepdiff import DeepDiff
 
 from CHK.offers import *
 from CHK.basket import *
@@ -94,13 +95,13 @@ class TestBasket:
                     + "G" * 7,
                     {
                         "single_items": {
-                            "A": BasketItem(16, 16, 650),
-                            "B": BasketItem(1, 0, 0),
-                            "C": BasketItem(18, 16, 320),
-                            "D": BasketItem(12, 12, 180),
-                            "E": BasketItem(20, 20, 800),
-                            "F": BasketItem(14, 14, 100),
-                            "G": BasketItem(7, 7, 70),
+                            "A": BasketItem(16, 16, None),
+                            "B": BasketItem(1, 0, None),
+                            "C": BasketItem(18, 16, None),
+                            "D": BasketItem(12, 12, None),
+                            "E": BasketItem(20, 20, None),
+                            "F": BasketItem(14, 14, None),
+                            "G": BasketItem(7, 7, None),
                         },
                         "group_prices": {}
                     },
@@ -111,10 +112,4 @@ class TestBasket:
         s = ""
         basket = Basket(skus, small_offer_database_1)
         basket.apply_all_cross_product_offers()
-        assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
-
-
-
-
-
-
+        assert DeepDiff(basket.basket_contents, expected_basket_contents) == {}
