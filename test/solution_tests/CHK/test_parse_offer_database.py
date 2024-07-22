@@ -30,7 +30,7 @@ def expected_offer_database_dict():
             "G": MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
         },
         "group_offers": {
-            frozenset({"A", "C", "D", "E"}): MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
+            frozenset({"A", "C", "D", "E"}): {"quantity": 4, "price": 27},
         }
     }
 
@@ -76,5 +76,6 @@ class TestParseOfferDatabase:
         test_database_filename = f"{os.getcwd()}/test_offer_database.txt"
         actual_offer_database_dict = parse_offer_database_file(test_database_filename)
         assert actual_offer_database_dict == expected_offer_database_dict
+
 
 

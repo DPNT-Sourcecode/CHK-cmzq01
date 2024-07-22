@@ -118,10 +118,11 @@ def parse_offer_database_file(filename):
                 if sku is not None and offer is not None:
                     offer_database["single_sku_offers"][sku] = offer
                     if isinstance(offer, MultiSubjectSkuOffer):
-                        offer_database["group_offers"][offer.subject_sku_set] = offer
+                        offer_database["group_offers"][offer.subject_sku_set] = {"quantity": offer.quantity, "price": offer.price}
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
+
 
 
 

@@ -38,6 +38,21 @@ def small_offer_database_1():
     }
 
 
+@pytest.fixture
+def small_offer_database_2():
+    return {
+        "single_sku_offers": {
+            "A": MultiSubjectSkuOffer(10, {"A", "B", "C", "D"}, 3, 45),
+            "B": MultiSubjectSkuOffer(15, {"A", "B", "C", "D"}, 3, 45),
+            "C": MultiSubjectSkuOffer(20, {"A", "B", "C", "D"}, 3, 45),
+            "D": MultiSubjectSkuOffer(25, {"A", "B", "C", "D"}, 3, 45),
+        },
+        "group_offers": {frozenset({"A", "B", "C", "D"}): MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27)}
+    }
+
+
+
+
 class TestBasket:
 
     @pytest.mark.parametrize(
@@ -71,12 +86,37 @@ class TestBasket:
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents == expected_basket_contents
 
+    @pytest.mark.parametrize(
+        "skus, expected_basket_contents, expected_final_price",
+        [
+            (
+                    "A" * 16
+                    + "B" * 1
+                    + "C" * 18
+                    + "D" * 12
+                    + "E" * 20
+                    + "F" * 14
+                    + "G" * 7,
+                    {
+                        "A": BasketItem(16, 16, None),
+                        "B": BasketItem(1, 0, None),
+                        "C": BasketItem(18, 16, None),
+                        "D": BasketItem(12, 12, None),
+                        "E": BasketItem(20, 20, None),
+                        "F": BasketItem(14, 14, None),
+                        "G": BasketItem(7, 7, None),
+                    },
+                    2120,
+            ),
+        ],
+    )
     def test_basket_apply_all_cross_product_offers(
                 self, skus, expected_basket_contents, expected_final_price, small_offer_database_1
         ):
-            basket = Basket(skus, small_offer_database_1)
+        basket = Basket(skus, small_offer_database_2)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents == expected_basket_contents
+
 
 
 
