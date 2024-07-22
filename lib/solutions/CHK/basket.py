@@ -56,11 +56,15 @@ class Basket:
         # Need list of all SKUs to add zero counts to some of basket_contents
         all_skus = offer_database["single_sku_offers"].keys()
 
+        basket_contents = {"single_items": {}, "group_prices": {}}
+
         # Basket contents of the form {"A": BasketItem(count_a), "B": BasketItem(count_b), etc ....}
-        self.basket_contents = {
+        basket_contents["single_items"] = {
             k: BasketItem(sku_counter[k])
             for k in all_skus
         }
+
+        self.basket_contents = basket_contents
 
         self.offer_database = offer_database
 
@@ -69,7 +73,7 @@ class Basket:
 
         :return: void
         """
-        for sku, basket_item in self.basket_contents.items():
+        for sku, basket_item in self.basket_contents["single_items"].items():
             offer = self.offer_database["single_sku_offers"][sku]
             if isinstance(offer, CrossProductOffer):
                 self.apply_cross_product_offer(sku, offer)
@@ -102,3 +106,4 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
