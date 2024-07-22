@@ -97,7 +97,9 @@ class Basket:
     def apply_all_group_offers(self):
         for sku_group, offer_details in self.offer_database["group_offers"].items():
             sub_contents = dict(filter(lambda i: i[0] in sku_group, self.basket_contents["single_items"].items()))
-            self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
+            new_sub_contents, group_price = self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
+            self.basket_contents["single_items"] = self.basket_contents["single_items"] | new_sub_contents
+            self.basket_contents["group_prices"][sku_group]["price"] = group_price
 
     def apply_group_offer(self, input_dict, quan, price):
         input_dict_sorted = sorted(input_dict.items(), key=lambda item: self.offer_database["single_sku_offers"][item[0]].single_unit_price, reverse=True)
@@ -108,9 +110,9 @@ class Basket:
         sku_remainder = tmp_sku_string[-remainder:]
         sku_remainder_counts = Counter(sku_remainder)
         output_dict = dict(input_dict)
-        for k,v in sku_remainder_counts.items():
+        for k,v in output_dict.items():
             output_dict[k].quantity_corrected = sku_remainder_counts[k]
-        return output_dict
+        return output_dict, total_price
 
     def calculate_all_prices(self):
         """Calculate all prices for the individual items in the basket contents.
@@ -124,6 +126,7 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
 
 
 
