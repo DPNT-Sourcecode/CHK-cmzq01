@@ -84,6 +84,7 @@ class Basket:
         """
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
+            offer_cls = offer.__class__
             if isinstance(offer, CrossProductOffer):
                 self.apply_cross_product_offer(offer)
 
@@ -110,3 +111,4 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
+
