@@ -104,7 +104,8 @@ def parse_offer_database_file(filename):
     :param filename: offer database file name
     :return: dictionary with entries like <sku>: <offer>
     """
-    offer_database = {}
+    offer_database = {"single_sku_offers": {},
+                      "group_offers": {}}
     with open(filename) as f:
         try:
             # Check second line for column signature
@@ -119,6 +120,7 @@ def parse_offer_database_file(filename):
                     if isinstance(offer, MultiSubjectSkuOffer):
                         offer_database["group_offers"][offer.subject_sku_set] = offer
             return offer_database
-        except:
+        except Exception as e:
             raise InvalidOfferDatabaseFile
+
 
