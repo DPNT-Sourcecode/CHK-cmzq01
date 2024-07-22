@@ -112,4 +112,3 @@ class TestBasket:
         basket = Basket(skus, small_offer_database_2)
         basket.apply_all_group_offers()
         assert DeepDiff(basket.basket_contents, expected_basket_contents) == {}
-

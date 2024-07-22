@@ -110,7 +110,7 @@ class Basket:
         total_price = (total_quantity // quan) * price
         tmp_sku_string = "".join([k*v.quantity_raw for k,v in input_dict_sorted])
         remainder = total_quantity % quan
-        sku_remainder = tmp_sku_string[-remainder:]
+        sku_remainder = tmp_sku_string[-remainder:] if remainder != 0 else ""
         sku_remainder_counts = Counter(sku_remainder)
         output_dict = dict(input_dict)
         for k, v in output_dict.items():
@@ -129,6 +129,4 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents["single_items"].items()]
         ) + sum([price for _, price in self.basket_contents["group_prices"].items()])
-
-
 
