@@ -29,9 +29,9 @@ def small_offer_database():
         ),
         "C": SingleSubjectSkuOffer(20),
         "D": SingleSubjectSkuOffer(15),
-        "E": CrossProductOffer(40, "E", 2, "B"),
+        "E": CrossProductOffer(40, 2, "B"),
         "F": BgfOffer(10, 2),
-        "G": CrossProductOffer(10, "G", 3, "C"),
+        "G": CrossProductOffer(10, 3, "C"),
     }
 
 
@@ -68,9 +68,3 @@ class TestBasket:
         basket = Basket(skus, small_offer_database)
         assert basket.basket_contents.__hash__ == expected_basket_contents.__hash__
         assert basket.final_price == expected_final_price
-
-
-
-
-
-

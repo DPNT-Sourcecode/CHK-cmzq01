@@ -74,7 +74,7 @@ def parse_line(line) -> tuple[str, [SingleSubjectSkuOffer, CrossProductOffer]]:
         else:
             return_sku = subject_sku
             return_offer = CrossProductOffer(
-                int(single_unit_price), subject_sku, int(buy_quantity), target_sku
+                int(single_unit_price), int(buy_quantity), target_sku
             )
 
     return return_sku, return_offer
@@ -107,4 +107,3 @@ def parse_offer_database_file(filename):
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
-

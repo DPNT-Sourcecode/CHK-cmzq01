@@ -24,7 +24,7 @@ def expected_offer_database_dict():
         ),
         "C": SingleSubjectSkuOffer(20),
         "D": SingleSubjectSkuOffer(15),
-        "E": CrossProductOffer(40, "E", 2, "B"),
+        "E": CrossProductOffer(40, 2, "B"),
         "F": BgfOffer(10, 2),
     }
 
@@ -52,7 +52,7 @@ class TestParseOfferDatabase:
             (
                 "| R    | 50    | 3R get one Q free      |",
                 "R",
-                CrossProductOffer(50, "R", 3, "Q"),
+                CrossProductOffer(50, 3, "Q"),
             ),
         ],
     )
@@ -65,5 +65,3 @@ class TestParseOfferDatabase:
         test_database_filename = f"{os.getcwd()}/test_offer_database.txt"
         actual_offer_database_dict = parse_offer_database_file(test_database_filename)
         assert actual_offer_database_dict == expected_offer_database_dict
-
-

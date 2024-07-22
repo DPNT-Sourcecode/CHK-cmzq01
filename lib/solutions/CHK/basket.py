@@ -85,17 +85,18 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             if isinstance(offer, CrossProductOffer):
-                self.apply_cross_product_offer(offer)
+                self.apply_cross_product_offer(sku, offer)
 
-    def apply_cross_product_offer(self, offer: CrossProductOffer):
+    def apply_cross_product_offer(self, sku: str, offer: CrossProductOffer):
         """Apply single cross-product offer on the basket.
 
         :param offer: offer to apply
+        :param sku: subject SKU (buying this SKU can save on the target SKU of the offer)
         :return: void
         """
         target_sku = offer.target_sku
         target_quantity = self.basket_contents[target_sku].quantity_corrected
-        subject_sku = offer.subject_sku
+        subject_sku = sku
         subject_quantity = self.basket_contents[subject_sku].quantity_raw
         subject_quantity_buy = offer.subject_quantity_buy
         self.basket_contents[target_sku].quantity_corrected = max(
@@ -110,5 +111,3 @@ class Basket:
         for sku, basket_item in self.basket_contents.items():
             offer = self.offer_database[sku]
             basket_item.price = offer.calculate_price(basket_item.quantity_corrected)
-
-

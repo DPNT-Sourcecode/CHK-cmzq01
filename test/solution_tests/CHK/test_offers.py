@@ -149,4 +149,3 @@ class TestOffers:
         with pytest.raises(expected_exception_class):
             offer = LadderOffer(single_unit_price, ladder_discounts)
             offer.calculate_price(quantity)
-

@@ -193,7 +193,6 @@ class CrossProductOffer(SingleSubjectSkuOffer):
     def __init__(
         self,
         single_unit_price: int,
-        subject_sku: str,
         subject_quantity_buy: int,
         target_sku: str,
     ):
@@ -206,13 +205,11 @@ class CrossProductOffer(SingleSubjectSkuOffer):
         super().__init__(single_unit_price)
         if not (
             isinstance(single_unit_price, int)
-            and isinstance(subject_sku, str)
             and isinstance(subject_quantity_buy, int)
             and isinstance(target_sku, str)
         ):
             raise TypeError
         self.single_unit_price = single_unit_price
-        self.subject_sku = subject_sku
         self.subject_quantity_buy = subject_quantity_buy
         self.target_sku = target_sku
 
@@ -224,9 +221,7 @@ class CrossProductOffer(SingleSubjectSkuOffer):
         """
         return (
             self.single_unit_price == other.single_unit_price
-            and self.subject_sku == other.subject_sku
             and self.subject_quantity_buy == other.subject_quantity_buy
             and self.target_sku == other.target_sku
         )
-
 
