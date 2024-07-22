@@ -84,7 +84,7 @@ def parse_line(line) -> tuple[str, [BasicOffer, CrossProductOffer]]:
         subject_sku, single_unit_price, group_quantity, group_string, group_price = (
             re.findall(group_offer_pattern, line)[0]
         )
-        group_set = set(group_string.split(","))
+        group_set = frozenset(group_string.split(","))
         return_sku = subject_sku
         return_offer = MultiSubjectSkuOffer(
             int(single_unit_price), group_set, int(group_quantity), int(group_price)
@@ -122,5 +122,6 @@ def parse_offer_database_file(filename):
             return offer_database
         except Exception as e:
             raise InvalidOfferDatabaseFile
+
 
 

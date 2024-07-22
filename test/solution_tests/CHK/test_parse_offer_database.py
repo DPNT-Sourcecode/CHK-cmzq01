@@ -9,24 +9,29 @@ from CHK.offers import *
 @pytest.fixture
 def expected_offer_database_dict():
     return {
-        "A": LadderOffer(
+        "single_sku_offers": {
+            "A": LadderOffer(
             50,
             [
                 LadderDiscount(3, 130),
                 LadderDiscount(5, 200),
             ],
-        ),
-        "B": LadderOffer(
-            30,
-            [
-                LadderDiscount(2, 45),
-            ],
-        ),
-        "C": BasicOffer(20),
-        "D": BasicOffer(15),
-        "E": CrossProductOffer(40, 2, "B"),
-        "F": BgfOffer(10, 2),
-        "G": MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
+            ),
+            "B": LadderOffer(
+                30,
+                [
+                    LadderDiscount(2, 45),
+                ],
+            ),
+            "C": BasicOffer(20),
+            "D": BasicOffer(15),
+            "E": CrossProductOffer(40, 2, "B"),
+            "F": BgfOffer(10, 2),
+            "G": MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
+        },
+        "group_offers": {
+            {"A", "C", "D", "E"}: MultiSubjectSkuOffer(18, {"A", "C", "D", "E"}, 4, 27),
+        }
     }
 
 
@@ -71,3 +76,4 @@ class TestParseOfferDatabase:
         test_database_filename = f"{os.getcwd()}/test_offer_database.txt"
         actual_offer_database_dict = parse_offer_database_file(test_database_filename)
         assert actual_offer_database_dict == expected_offer_database_dict
+
