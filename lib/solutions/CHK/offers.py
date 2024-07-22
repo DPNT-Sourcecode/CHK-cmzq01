@@ -215,7 +215,7 @@ class CrossProductOffer(BasicOffer):
 
 
 @typechecked
-class MultiSubjectSkuOffer:
+class MultiSubjectSkuOffer(BasicOffer):
     """Class representing a group discount."""
     def __init__(
             self,
