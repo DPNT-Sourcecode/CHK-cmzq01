@@ -122,8 +122,3 @@ def parse_offer_database_file(filename):
             return offer_database
         except:
             raise InvalidOfferDatabaseFile
-
-
-
-
-
