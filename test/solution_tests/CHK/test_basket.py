@@ -46,6 +46,7 @@ def small_offer_database_2():
             "B": MultiSubjectSkuOffer(15, {"A", "B", "C", "D"}, 3, 45),
             "C": MultiSubjectSkuOffer(20, {"A", "B", "C", "D"}, 3, 45),
             "D": MultiSubjectSkuOffer(25, {"A", "B", "C", "D"}, 3, 45),
+            "E": BasicOffer(30),
         },
         "group_offers": {frozenset({"A", "B", "C", "D"}): {"quantity": 3, "price": 45}}
     }
@@ -112,6 +113,7 @@ class TestBasket:
         basket = Basket(skus, small_offer_database_2)
         basket.apply_all_cross_product_offers()
         assert basket.basket_contents == expected_basket_contents
+
 
 
 
