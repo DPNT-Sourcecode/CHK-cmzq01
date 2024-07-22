@@ -100,8 +100,7 @@ class Basket:
             new_sub_contents, group_price = self.apply_group_offer(sub_contents, offer_details["quantity"], offer_details["price"])
             self.basket_contents["single_items"] = self.basket_contents["single_items"] | new_sub_contents
             try:
-                self.basket_contents["group_prices"][sku_group] = {}
-                self.basket_contents["group_prices"][sku_group]["price"] = group_price
+                self.basket_contents["group_prices"][sku_group] = group_price
             except Exception as e:
                 pass
 
@@ -114,7 +113,7 @@ class Basket:
         sku_remainder = tmp_sku_string[-remainder:]
         sku_remainder_counts = Counter(sku_remainder)
         output_dict = dict(input_dict)
-        for k,v in output_dict.items():
+        for k, v in output_dict.items():
             output_dict[k].quantity_corrected = sku_remainder_counts[k]
         return output_dict, total_price
 
@@ -130,3 +129,4 @@ class Basket:
         self.final_price = sum(
             [basket_item.price for _, basket_item in self.basket_contents.items()]
         )
+
